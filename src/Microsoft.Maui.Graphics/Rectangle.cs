@@ -56,7 +56,7 @@ namespace Microsoft.Maui.Graphics
         {
             unchecked
             {
-                int hashCode = X.GetHashCode();
+                var hashCode = X.GetHashCode();
                 hashCode = (hashCode * 397) ^ Y.GetHashCode();
                 hashCode = (hashCode * 397) ^ Width.GetHashCode();
                 hashCode = (hashCode * 397) ^ Height.GetHashCode();
@@ -112,10 +112,10 @@ namespace Microsoft.Maui.Graphics
 
         public static Rectangle Intersect(Rectangle r1, Rectangle r2)
         {
-            double x = Math.Max(r1.X, r2.X);
-            double y = Math.Max(r1.Y, r2.Y);
-            double width = Math.Min(r1.Right, r2.Right) - x;
-            double height = Math.Min(r1.Bottom, r2.Bottom) - y;
+            var x = Math.Max(r1.X, r2.X);
+            var y = Math.Max(r1.Y, r2.Y);
+            var width = Math.Min(r1.Right, r2.Right) - x;
+            var height = Math.Min(r1.Bottom, r2.Bottom) - y;
 
             if (width < 0 || height < 0)
             {
@@ -181,7 +181,7 @@ namespace Microsoft.Maui.Graphics
 
         public Rectangle Inflate(double width, double height)
         {
-            Rectangle r = this;
+            var r = this;
             r.X -= width;
             r.Y -= height;
             r.Width += width * 2;
@@ -191,7 +191,7 @@ namespace Microsoft.Maui.Graphics
 
         public Rectangle Offset(double dx, double dy)
         {
-            Rectangle r = this;
+            var r = this;
             r.X += dx;
             r.Y += dy;
             return r;
@@ -214,6 +214,5 @@ namespace Microsoft.Maui.Graphics
             width = Width;
             height = Height;
         }
-        public static implicit operator RectangleF(Rectangle rect) => new RectangleF(rect.X, rect.Y, rect.Width, rect.Height);
     }
 }

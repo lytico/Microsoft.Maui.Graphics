@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics
         {
             get
             {
-                string vValueAsString = _commandStack.Pop();
+                var vValueAsString = _commandStack.Pop();
 
                 if ("1".Equals(vValueAsString))
                 {
@@ -46,7 +46,7 @@ namespace Microsoft.Maui.Graphics
         {
             get
             {
-                string vValueAsString = _commandStack.Pop();
+                var vValueAsString = _commandStack.Pop();
                 try
                 {
                     return ParseFloat(vValueAsString);
@@ -76,7 +76,7 @@ namespace Microsoft.Maui.Graphics
                 }
             }
 
-            string stringValue = GetNumbersOnly(value);
+            var stringValue = GetNumbersOnly(value);
             if (double.TryParse(stringValue, NumberStyles.Any, CultureInfo.InvariantCulture, out number))
             {
                 return number;
@@ -88,7 +88,7 @@ namespace Microsoft.Maui.Graphics
         private static string GetNumbersOnly(string value)
         {
             var builder = new StringBuilder(value.Length);
-            foreach (char c in value)
+            foreach (var c in value)
             {
                 if (char.IsDigit(c) || c == '.' || c == '-')
                 {
@@ -121,11 +121,11 @@ namespace Microsoft.Maui.Graphics
 #if DEBUG_PATH
                 Logger.Debug(aPathString);
 #endif
-                string[] args = pathAsString.Split(new[] {' ', '\r', '\n', '\t', ','}, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = args.Length - 1; i >= 0; i--)
+                var args = pathAsString.Split(new[] {' ', '\r', '\n', '\t', ','}, StringSplitOptions.RemoveEmptyEntries);
+                for (var i = args.Length - 1; i >= 0; i--)
                 {
-                    string entry = args[i];
-                    char c = entry[0];
+                    var entry = args[i];
+                    var c = entry[0];
                     if (char.IsLetter(c))
                     {
                         if (entry.Length > 1)
@@ -176,7 +176,7 @@ namespace Microsoft.Maui.Graphics
                         _path = new Path();
                     }
 
-                    string topCommand = _commandStack.Pop();
+                    var topCommand = _commandStack.Pop();
                     var firstLetter = topCommand[0];
 
                     if (IsCommand(firstLetter))
@@ -227,7 +227,7 @@ namespace Microsoft.Maui.Graphics
 
         private void HandleCommand(string command)
         {
-            char c = command[0];
+            var c = command[0];
 
             if (_lastCommand != '~' && (char.IsDigit(c) || c == '-'))
             {
@@ -482,10 +482,10 @@ namespace Microsoft.Maui.Graphics
         private void CurveTo(bool isRelative)
         {
             var point1 = NewPoint(NextValue, NextValue, isRelative, false);
-            double x = NextValue;
-            double y = NextValue;
+            var x = NextValue;
+            var y = NextValue;
 
-            bool isQuad = char.IsLetter(_commandStack.Peek()[0]);
+            var isQuad = char.IsLetter(_commandStack.Peek()[0]);
             var point2 = NewPoint(x, y, isRelative, isQuad);
 
             if (isQuad)
@@ -568,7 +568,7 @@ namespace Microsoft.Maui.Graphics
             var arcPath = new Path(startPoint);
             arcPath.SVGArcTo(rx, ry, r, largeArcFlag, sweepFlag, endPoint.X, endPoint.Y, startPoint.X, startPoint.Y);
 
-            for (int s = 0; s < arcPath.OperationCount; s++)
+            for (var s = 0; s < arcPath.OperationCount; s++)
             {
                 var segmentType = arcPath.GetSegmentType(s);
                 var pointsInSegment = arcPath.GetPointsForSegment(s);

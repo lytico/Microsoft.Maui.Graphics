@@ -54,7 +54,7 @@ namespace Microsoft.Maui.Graphics
 
         public Point Offset(double dx, double dy)
         {
-            Point p = this;
+            var p = this;
             p.X += dx;
             p.Y += dy;
             return p;

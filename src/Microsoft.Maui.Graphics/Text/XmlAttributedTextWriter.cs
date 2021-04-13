@@ -23,13 +23,13 @@ namespace Microsoft.Maui.Graphics.Text
         {
             if (attributedText != null && !string.IsNullOrEmpty(attributedText.Text))
             {
-                bool encode = attributedText.Text.Contains("]]");
+                var encode = attributedText.Text.Contains("]]");
 
                 writer.Write($"<{XmlNames.AttributedText}>");
                 if (encode)
                 {
                     writer.Write($"<{XmlNames.Content} {XmlNames.Encoded}=\"True\"><![CDATA[");
-                    byte[] bytes = Encoding.UTF8.GetBytes(attributedText.Text);
+                    var bytes = Encoding.UTF8.GetBytes(attributedText.Text);
                     writer.Write(Convert.ToBase64String(bytes));
                     writer.Write($"]]></{XmlNames.Content}>");
                 }

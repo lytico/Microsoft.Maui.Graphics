@@ -90,7 +90,7 @@ namespace Microsoft.Maui.Graphics
             height = 0;
 
             // Look into the byte array and get the size of the image
-            for (int i = 0; i <= 3; i++)
+            for (var i = 0; i <= 3; i++)
             {
                 width = _bytes[i] | width << 8;
                 height = _bytes[i + 4] | height << 8;
@@ -102,8 +102,8 @@ namespace Microsoft.Maui.Graphics
             width = 0;
             height = 0;
 
-            bool found = false;
-            bool eof = false;
+            var found = false;
+            var eof = false;
 
             var stream = new MemoryStream(_bytes);
             var reader = new BinaryReader(stream);
@@ -112,7 +112,7 @@ namespace Microsoft.Maui.Graphics
             {
                 // read 0xFF and the type
                 reader.ReadByte();
-                byte type = reader.ReadByte();
+                var type = reader.ReadByte();
 
                 // get length
                 int len;
@@ -145,7 +145,7 @@ namespace Microsoft.Maui.Graphics
                 if (len > 0)
                 {
                     // read the data
-                    byte[] data = reader.ReadBytes(len);
+                    var data = reader.ReadBytes(len);
 
                     // this is what we are looking for
                     if (type == 0xC0)
@@ -161,7 +161,7 @@ namespace Microsoft.Maui.Graphics
             stream.Dispose();
         }
 
-        public void Draw(ICanvas canvas, RectangleF dirtyRect)
+        public void Draw(ICanvas canvas, Rectangle dirtyRect)
         {
             throw new Exception("Drawing a virtual image is not supported.");
         }

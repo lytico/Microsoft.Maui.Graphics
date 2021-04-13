@@ -1017,7 +1017,7 @@ namespace Microsoft.Maui.Graphics
             return new Path(points, arcSizes, arcClockwise, operations, _subPathCount);
         }
 
-        public void AppendEllipse(RectangleF rect)
+        public void AppendEllipse(Rectangle rect)
         {
             AppendEllipse(rect.X, rect.Y, rect.Width, rect.Height);
         }
@@ -1065,7 +1065,7 @@ namespace Microsoft.Maui.Graphics
             Close();
         }
 
-        public void AppendRectangle(RectangleF rect, bool includeLast = false)
+        public void AppendRectangle(Rectangle rect, bool includeLast = false)
         {
             AppendRectangle(rect.X, rect.Y, rect.Width, rect.Height, includeLast);
         }
@@ -1090,7 +1090,7 @@ namespace Microsoft.Maui.Graphics
             Close();
         }
 
-        public void AppendRoundedRectangle(RectangleF rect, double cornerRadius, bool includeLast = false)
+        public void AppendRoundedRectangle(Rectangle rect, double cornerRadius, bool includeLast = false)
         {
             AppendRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius, includeLast);
         }
@@ -1124,7 +1124,7 @@ namespace Microsoft.Maui.Graphics
             Close();
         }
 
-        public void AppendRoundedRectangle(RectangleF rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius, bool includeLast = false)
+        public void AppendRoundedRectangle(Rectangle rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius, bool includeLast = false)
         {
             AppendRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius, includeLast);
         }

@@ -26,12 +26,12 @@ namespace Microsoft.Maui.Graphics
             // Do nothing
         }
 
-        public RectangleF GetPathBounds(Path path)
+        public Rectangle GetPathBounds(Path path)
         {
             throw new NotImplementedException();
         }
 
-        public RectangleF GetPathBoundsWhenRotated(Point center, Path path, double angle)
+        public Rectangle GetPathBoundsWhenRotated(Point center, Path path, double angle)
         {
             throw new NotImplementedException();
         }

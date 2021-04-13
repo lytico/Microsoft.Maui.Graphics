@@ -162,10 +162,10 @@ namespace Microsoft.Maui.Graphics.Text
                     return null;
             }
 
-            int red = 0;
-            int green = 0;
-            int blue = 0;
-            int alpha = 255;
+            var red = 0;
+            var green = 0;
+            var blue = 0;
+            var alpha = 255;
 
             if (color.Length == 7)
             {
@@ -205,10 +205,10 @@ namespace Microsoft.Maui.Graphics.Text
                     return null;
             }
 
-            int red = 0;
-            int green = 0;
-            int blue = 0;
-            int alpha = 255;
+            var red = 0;
+            var green = 0;
+            var blue = 0;
+            var alpha = 255;
 
             if (color.Length == 7)
             {

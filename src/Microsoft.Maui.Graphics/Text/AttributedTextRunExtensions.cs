@@ -67,7 +67,7 @@ namespace Microsoft.Maui.Graphics.Text
             this IAttributedTextRun first,
             IAttributedTextRun second)
         {
-            List<IAttributedTextRun> intersections = new List<IAttributedTextRun>();
+            var intersections = new List<IAttributedTextRun>();
 
             var combined = first.Attributes.Union(second.Attributes);
             if (first.Start == second.Start)
@@ -156,7 +156,7 @@ namespace Microsoft.Maui.Graphics.Text
         public static void Optimize(this List<IAttributedTextRun> runs, int textLength)
         {
             // Loop through the runs and make sure that they don't extend beyond the bounds of the text.
-            for (int i = 0; i < runs.Count; i++)
+            for (var i = 0; i < runs.Count; i++)
             {
                 var run = runs[i];
                 var end = run.GetEnd();
@@ -177,7 +177,7 @@ namespace Microsoft.Maui.Graphics.Text
 
             // Loop through the runs and join the ones that overlap.
             IAttributedTextRun previous = null;
-            for (int i = 0; i < runs.Count; i++)
+            for (var i = 0; i < runs.Count; i++)
             {
                 var run = runs[i];
 

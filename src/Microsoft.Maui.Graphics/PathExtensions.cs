@@ -51,11 +51,11 @@ namespace Microsoft.Maui.Graphics
 
         private static void WritePoint(StringWriter writer, Point point, double ppu)
         {
-            double x = point.X * ppu;
-            double y = point.Y * ppu;
+            var x = point.X * ppu;
+            var y = point.Y * ppu;
 
-            string cx = x.ToString(CultureInfo.InvariantCulture);
-            string cy = y.ToString(CultureInfo.InvariantCulture);
+            var cx = x.ToString(CultureInfo.InvariantCulture);
+            var cy = y.ToString(CultureInfo.InvariantCulture);
 
             writer.Write(cx);
             writer.Write(" ");

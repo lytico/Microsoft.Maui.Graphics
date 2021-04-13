@@ -138,8 +138,8 @@ namespace Microsoft.Maui.Graphics
 
         public void SetToRotation(double angle)
         {
-            double sin = Math.Sin(angle);
-            double cos = Math.Cos(angle);
+            var sin = Math.Sin(angle);
+            var cos = Math.Cos(angle);
             if (Math.Abs(cos) < Epsilon)
             {
                 cos = 0.0f;
@@ -263,7 +263,7 @@ namespace Microsoft.Maui.Graphics
 
         public AffineTransform CreateInverse()
         {
-            double det = GetDeterminant();
+            var det = GetDeterminant();
             if (Math.Abs(det) < Epsilon)
                 throw new Exception("Determinant is zero");
 
@@ -289,19 +289,19 @@ namespace Microsoft.Maui.Graphics
 
         public Point InverseTransform(Point src)
         {
-            double det = GetDeterminant();
+            var det = GetDeterminant();
             if (Math.Abs(det) < Epsilon)
                 throw new Exception("Unable to inverse this transform.");
 
-            double x = src.X - _m02;
-            double y = src.Y - _m12;
+            var x = src.X - _m02;
+            var y = src.Y - _m12;
 
             return new Point((x * _m11 - y * _m01) / det, (y * _m00 - x * _m10) / det);
         }
 
         public void Transform(double[] src, int srcOff, double[] dst, int dstOff, int length)
         {
-            int step = 2;
+            var step = 2;
             if (src == dst && srcOff < dstOff && dstOff < srcOff + length * 2)
             {
                 srcOff = srcOff + length * 2 - 2;
@@ -311,8 +311,8 @@ namespace Microsoft.Maui.Graphics
 
             while (--length >= 0)
             {
-                double x = src[srcOff + 0];
-                double y = src[srcOff + 1];
+                var x = src[srcOff + 0];
+                var y = src[srcOff + 1];
                 dst[dstOff + 0] = x * _m00 + y * _m01 + _m02;
                 dst[dstOff + 1] = x * _m10 + y * _m11 + _m12;
                 srcOff += step;

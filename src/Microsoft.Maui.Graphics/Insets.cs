@@ -94,10 +94,10 @@ namespace Microsoft.Maui.Graphics
             try
             {
                 var values = value.Split(',');
-                double top = double.Parse(values[0], CultureInfo.InvariantCulture);
-                double left = double.Parse(values[1], CultureInfo.InvariantCulture);
-                double bottom = double.Parse(values[2], CultureInfo.InvariantCulture);
-                double right = double.Parse(values[3], CultureInfo.InvariantCulture);
+                var top = double.Parse(values[0], CultureInfo.InvariantCulture);
+                var left = double.Parse(values[1], CultureInfo.InvariantCulture);
+                var bottom = double.Parse(values[2], CultureInfo.InvariantCulture);
+                var right = double.Parse(values[3], CultureInfo.InvariantCulture);
                 return new Insets(top, left, bottom, right);
             }
             catch (Exception exc)

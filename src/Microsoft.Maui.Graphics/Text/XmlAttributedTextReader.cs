@@ -69,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Text
 
         protected void ElementStarted()
         {
-            string elementName = _reader.Name;
+            var elementName = _reader.Name;
 
             if (XmlNames.Content.Equals(elementName))
             {
@@ -84,7 +84,7 @@ namespace Microsoft.Maui.Graphics.Text
 
         protected void ElementEnded()
         {
-            string elementName = _reader.Name;
+            var elementName = _reader.Name;
             if (XmlNames.Content.Equals(elementName))
                 _inContent = false;
         }
@@ -95,8 +95,8 @@ namespace Microsoft.Maui.Graphics.Text
             {
                 if (_contentEncoded)
                 {
-                    byte[] bytes = Convert.FromBase64String(_reader.Value);
-                    string text = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                    var bytes = Convert.FromBase64String(_reader.Value);
+                    var text = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                     _writer.Write(text);
                 }
                 else
@@ -108,7 +108,7 @@ namespace Microsoft.Maui.Graphics.Text
 
         private void ReadRun()
         {
-            TextAttributes attributes = new TextAttributes();
+            var attributes = new TextAttributes();
 
             var start = ReadInt(XmlNames.Start, 0);
             var length = ReadInt(XmlNames.Length, 0);

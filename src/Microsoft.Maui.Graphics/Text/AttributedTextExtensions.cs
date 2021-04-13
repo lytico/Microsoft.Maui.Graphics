@@ -55,10 +55,10 @@ namespace Microsoft.Maui.Graphics.Text
             if (attributedText?.Text == null)
                 return null;
 
-            List<IAttributedText> paragraphs = new List<IAttributedText>();
+            var paragraphs = new List<IAttributedText>();
 
-            int start = 0;
-            int attributeIndex = 0;
+            var start = 0;
+            var attributeIndex = 0;
 
             using (var sr = new StringReader(attributedText.Text))
             {

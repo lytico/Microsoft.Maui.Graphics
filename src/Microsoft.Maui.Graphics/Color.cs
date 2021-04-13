@@ -38,10 +38,10 @@ namespace Microsoft.Maui.Graphics
 			if (colorAsHex.IndexOf('#') != -1)
 				colorAsHex = colorAsHex.Replace("#", "");
 
-			int red = 0;
-			int green = 0;
-			int blue = 0;
-			int alpha = 255;
+			var red = 0;
+			var green = 0;
+			var blue = 0;
+			var alpha = 255;
 
 			if (colorAsHex.Length == 6)
 			{
@@ -89,7 +89,7 @@ namespace Microsoft.Maui.Graphics
 		{
 			unchecked
 			{
-				int hashcode = Red.GetHashCode();
+				var hashcode = Red.GetHashCode();
 				hashcode = (hashcode * 397) ^ Green.GetHashCode();
 				hashcode = (hashcode * 397) ^ Blue.GetHashCode();
 				hashcode = (hashcode * 397) ^ Alpha.GetHashCode();
@@ -152,9 +152,9 @@ namespace Microsoft.Maui.Graphics
 
 		public double GetLuminosity()
         {
-            double v = Math.Max(Red, Green);
+            var v = Math.Max(Red, Green);
             v = Math.Max(v, Blue);
-            double m = Math.Min(Red, Green);
+            var m = Math.Min(Red, Green);
             m = Math.Min(m, Blue);
             var l = (m + v) / 2.0f;
             if (l <= 0.0)
@@ -263,10 +263,10 @@ namespace Microsoft.Maui.Graphics
 			if (colorAsHex.IndexOf('#') != -1)
 				colorAsHex = colorAsHex.Replace("#", "");
 
-			int red = 0;
-			int green = 0;
-			int blue = 0;
-			int alpha = 255;
+			var red = 0;
+			var green = 0;
+			var blue = 0;
+			var alpha = 255;
 
 			if (colorAsHex.Length == 6)
 			{
@@ -337,8 +337,8 @@ namespace Microsoft.Maui.Graphics
 				r = g = b = luminosity;
 				return;
 			}
-			double temp2 = luminosity <= 0.5f ? luminosity * (1.0f + saturation) : luminosity + saturation - luminosity * saturation;
-			double temp1 = 2.0f * luminosity - temp2;
+			var temp2 = luminosity <= 0.5f ? luminosity * (1.0f + saturation) : luminosity + saturation - luminosity * saturation;
+			var temp1 = 2.0f * luminosity - temp2;
 
 			var t3 = new[] { hue + 1.0f / 3.0f, hue, hue - 1.0f / 3.0f };
 			var clr = new double[] { 0, 0, 0 };
@@ -365,10 +365,10 @@ namespace Microsoft.Maui.Graphics
 
 		private static void ConvertToHsl(double r, double g, double b, out double h, out double s, out double l)
 		{
-			double v = Math.Max(r, g);
+			var v = Math.Max(r, g);
 			v = Math.Max(v, b);
 
-			double m = Math.Min(r, g);
+			var m = Math.Min(r, g);
 			m = Math.Min(m, b);
 
 			l = (m + v) / 2.0f;
@@ -377,7 +377,7 @@ namespace Microsoft.Maui.Graphics
 				h = s = l = 0;
 				return;
 			}
-			double vm = v - m;
+			var vm = v - m;
 			s = vm;
 
 			if (s > 0.0)
@@ -391,9 +391,9 @@ namespace Microsoft.Maui.Graphics
 				return;
 			}
 
-			double r2 = (v - r) / vm;
-			double g2 = (v - g) / vm;
-			double b2 = (v - b) / vm;
+			var r2 = (v - r) / vm;
+			var g2 = (v - g) / vm;
+			var b2 = (v - b) / vm;
 
 			if (r == v)
 			{

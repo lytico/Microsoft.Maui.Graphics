@@ -68,7 +68,7 @@ namespace Microsoft.Maui.Graphics
             if (!_fontCache.TryGetValue(id, out var fontStyle))
             {
                 var families = GetFontFamilies();
-                for (int f = 0; f < families.Length && fontStyle == null; f++)
+                for (var f = 0; f < families.Length && fontStyle == null; f++)
                 {
                     var family = families[f];
 
@@ -81,7 +81,7 @@ namespace Microsoft.Maui.Graphics
                         var styles = family.GetFontStyles();
                         if (styles != null)
                         {
-                            for (int s = 0; s < styles.Length && fontStyle == null; s++)
+                            for (var s = 0; s < styles.Length && fontStyle == null; s++)
                             {
                                 var style = styles[s];
                                 if (id.Equals(style.Id, StringComparison.OrdinalIgnoreCase))
