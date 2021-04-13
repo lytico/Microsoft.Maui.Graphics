@@ -24,6 +24,7 @@ namespace Microsoft.Maui.Graphics
         public  void DrawPath(Path path);
 
         public  void FillPath(Path path, WindingMode windingMode);
+
         public  void SubtractFromClip(double x, double y, double width, double height);
 
         public  void ClipPath(Path path, WindingMode windingMode = WindingMode.NonZero);
