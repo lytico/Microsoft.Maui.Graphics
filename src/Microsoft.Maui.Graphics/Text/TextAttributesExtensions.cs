@@ -68,15 +68,15 @@ namespace Microsoft.Maui.Graphics.Text
                 attributes.SetAttribute(type, value.ToString(CultureInfo.InvariantCulture));
         }
 
-        public static float GetFloatAttribute(
+        public static double GetFloatAttribute(
             this ITextAttributes attributes,
             TextAttribute type,
-            float defaultValue)
+            double defaultValue)
         {
             var value = attributes.GetAttribute(type);
             if (value != null)
             {
-                if (float.TryParse(value, out var floatValue))
+                if (double.TryParse(value, out var floatValue))
                     return floatValue;
             }
 
@@ -86,8 +86,8 @@ namespace Microsoft.Maui.Graphics.Text
         public static void SetFloatAttribute(
             this Dictionary<TextAttribute, string> attributes,
             TextAttribute type,
-            float value,
-            float defaultValue)
+            double value,
+            double defaultValue)
         {
 #pragma warning disable RECS0018 // Comparison of floating point numbers with equality operator
             if (value == defaultValue)

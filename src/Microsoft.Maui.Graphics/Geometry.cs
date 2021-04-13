@@ -4,27 +4,27 @@ namespace Microsoft.Maui.Graphics
 {
     public static class Geometry
     {
-        public const float Epsilon = 0.0000000001f;
+        public const double Epsilon = 0.0000000001d;
 
-        public static float GetDistance(float x1, float y1, float x2, float y2)
+        public static double GetDistance(double x1, double y1, double x2, double y2)
         {
             var a = x2 - x1;
             var b = y2 - y1;
 
-            return (float) Math.Sqrt(a * a + b * b);
+            return Math.Sqrt(a * a + b * b);
         }
 
 
 
-        public static float GetAngleAsDegrees(float x1, float y1, float x2, float y2)
+        public static double GetAngleAsDegrees(double x1, double y1, double x2, double y2)
         {
             try
             {
                 var dx = x1 - x2;
                 var dy = y1 - y2;
 
-                var radians = (float) Math.Atan2(dy, dx);
-                var degrees = radians * 180.0f / (float) Math.PI;
+                var radians = Math.Atan2(dy, dx);
+                var degrees = radians * 180.0f / Math.PI;
 
                 return 180 - degrees;
             }
@@ -34,20 +34,10 @@ namespace Microsoft.Maui.Graphics
                 throw new Exception("Exception in GetAngleAsDegrees", exc);
             }
         }
-        
-        public static float DegreesToRadians(float angle)
-        {
-            return (float) Math.PI * angle / 180;
-        }
 
         public static double DegreesToRadians(double angle)
         {
             return Math.PI * angle / 180;
-        }
-
-        public static float RadiansToDegrees(float angle)
-        {
-            return angle * (180 / (float) Math.PI);
         }
 
         public static double RadiansToDegrees(double angle)
@@ -55,25 +45,15 @@ namespace Microsoft.Maui.Graphics
             return angle * (180 / Math.PI);
         }
 
-        public static PointF RotatePoint(PointF point, float angle)
+        public static Point RotatePoint(Point center, Point point, double angle)
         {
             var radians = DegreesToRadians(angle);
-
-            var x = (float) (Math.Cos(radians) * point.X - Math.Sin(radians) * point.Y);
-            var y = (float) (Math.Sin(radians) * point.X + Math.Cos(radians) * point.Y);
-
-            return new PointF(x, y);
+            var x = center.X + (Math.Cos(radians) * (point.X - center.X) - Math.Sin(radians) * (point.Y - center.Y));
+            var y = center.Y + (Math.Sin(radians) * (point.X - center.X) + Math.Cos(radians) * (point.Y - center.Y));
+            return new Point(x, y);
         }
 
-        public static PointF RotatePoint(PointF center, PointF point, float angle)
-        {
-            var radians = DegreesToRadians(angle);
-            var x = center.X + (float) (Math.Cos(radians) * (point.X - center.X) - Math.Sin(radians) * (point.Y - center.Y));
-            var y = center.Y + (float) (Math.Sin(radians) * (point.X - center.X) + Math.Cos(radians) * (point.Y - center.Y));
-            return new PointF(x, y);
-        }
-
-        public static float GetSweep(float angle1, float angle2, bool clockwise)
+        public static double GetSweep(double angle1, double angle2, bool clockwise)
         {
             if (clockwise)
             {
@@ -98,12 +78,12 @@ namespace Microsoft.Maui.Graphics
                 }
             }
         }
-        
-        public static PointF PolarToPoint(float angleInRadians, float fx, float fy)
+
+        public static Point PolarToPoint(double angleInRadians, double fx, double fy)
         {
-            var sin = (float) Math.Sin(angleInRadians);
-            var cos = (float) Math.Cos(angleInRadians);
-            return new PointF(fx * cos, fy * sin);
+            var sin = Math.Sin(angleInRadians);
+            var cos = Math.Cos(angleInRadians);
+            return new Point(fx * cos, fy * sin);
         }
 
 
@@ -116,7 +96,7 @@ namespace Microsoft.Maui.Graphics
         /// <param name="width">The width of the bounding rectangle.</param>
         /// <param name="height">The height of the bounding rectangle.</param>
         /// <param name="angleInDegrees">Angle in degrees.</param>
-        public static PointF EllipseAngleToPoint(float x, float y, float width, float height, float angleInDegrees)
+        public static Point EllipseAngleToPoint(double x, double y, double width, double height, double angleInDegrees)
         {
             var radians = DegreesToRadians(angleInDegrees);
 
@@ -129,19 +109,19 @@ namespace Microsoft.Maui.Graphics
             point.Y += cy;
             return point;
         }
-        
-        public static PointF GetOppositePoint(PointF pivot, PointF oppositePoint)
+
+        public static Point GetOppositePoint(Point pivot, Point oppositePoint)
         {
             var dx = oppositePoint.X - pivot.X;
             var dy = oppositePoint.Y - pivot.Y;
-            return new PointF(pivot.X - dx, pivot.Y - dy);
+            return new Point(pivot.X - dx, pivot.Y - dy);
         }
-        
+
         /**
        * Return true if c is between a and b.
         */
 
-        private static bool IsBetween(float a, float b, float c)
+        private static bool IsBetween(double a, double b, double c)
         {
             return b > a ? c >= a && c <= b : c >= b && c <= a;
         }
@@ -149,7 +129,7 @@ namespace Microsoft.Maui.Graphics
         /**
          * Check if two points are on the same side of a given line.
          * Algorithm from Sedgewick page 350.
-         * 
+         *
          * @param x0, y0, x1, y1  The line.
          * @param px0, py0        First point.
          * @param px1, py1        Second point.
@@ -158,7 +138,7 @@ namespace Microsoft.Maui.Graphics
          *                        >0 if points on same side.
          */
 
-        private static int SameSide(float x0, float y0, float x1, float y1, float px0, float py0, float px1, float py1)
+        private static int SameSide(double x0, double y0, double x1, double y1, double px0, double py0, double px1, double py1)
         {
             var sameSide = 0;
 
@@ -193,21 +173,21 @@ namespace Microsoft.Maui.Graphics
 
         /**
          * Check if two line segments intersects. Integer domain.
-         * 
+         *
          * @param x0, y0, x1, y1  End points of first line to check.
          * @param x2, yy, x3, y3  End points of second line to check.
          * @return                True if the two lines intersects.
          */
 
         public static bool IsLineIntersectingLine(
-            float x0,
-            float y0,
-            float x1,
-            float y1,
-            float x2,
-            float y2,
-            float x3,
-            float y3)
+            double x0,
+            double y0,
+            double x1,
+            double y1,
+            double x2,
+            double y2,
+            double x3,
+            double y3)
         {
             var s1 = SameSide(x0, y0, x1, y1, x2, y2, x3, y3);
             var s2 = SameSide(x2, y2, x3, y3, x0, y0, x1, y1);
@@ -215,8 +195,8 @@ namespace Microsoft.Maui.Graphics
             return s1 <= 0 && s2 <= 0;
         }
 
-        
-        public static float GetFactor(float aMin, float aMax, float aValue)
+
+        public static double GetFactor(double aMin, double aMax, double aValue)
         {
             var vAdjustedValue = aValue - aMin;
             var vRange = aMax - aMin;
@@ -229,7 +209,7 @@ namespace Microsoft.Maui.Graphics
             return vAdjustedValue / vRange;
         }
 
-        public static float GetLinearValue(float aMin, float aMax, float aFactor)
+        public static double GetLinearValue(double aMin, double aMax, double aFactor)
         {
             var d = aMax - aMin;
             d *= aFactor;

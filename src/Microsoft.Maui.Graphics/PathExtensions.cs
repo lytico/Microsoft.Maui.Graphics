@@ -5,7 +5,7 @@ namespace Microsoft.Maui.Graphics
 {
     public static class PathExtensions
     {
-        public static string ToDefinitionString(this PathF path, float ppu = 1)
+        public static string ToDefinitionString(this Path path, double ppu = 1)
         {
             var writer = new StringWriter();
 
@@ -49,10 +49,10 @@ namespace Microsoft.Maui.Graphics
             return writer.ToString();
         }
 
-        private static void WritePoint(StringWriter writer, PointF point, float ppu)
+        private static void WritePoint(StringWriter writer, Point point, double ppu)
         {
-            float x = point.X * ppu;
-            float y = point.Y * ppu;
+            double x = point.X * ppu;
+            double y = point.Y * ppu;
 
             string cx = x.ToString(CultureInfo.InvariantCulture);
             string cy = y.ToString(CultureInfo.InvariantCulture);
@@ -62,11 +62,11 @@ namespace Microsoft.Maui.Graphics
             writer.Write(cy);
         }
 
-        public static PathF AsScaledPath(
-            this PathF target,
-            float scale)
+        public static Path AsScaledPath(
+            this Path target,
+            double scale)
         {
-            var scaledPath = new PathF(target);
+            var scaledPath = new Path(target);
             var transform = AffineTransform.GetScaleInstance(scale, scale);
             scaledPath.Transform(transform);
             return scaledPath;

@@ -7,9 +7,9 @@ namespace Microsoft.Maui.Graphics
     {
         public int Width { get; }
         public int Height { get; }
-        public float Dpi { get; }
+        public double Dpi { get; }
 
-        protected BitmapExportContext(int width, int height, float dpi)
+        protected BitmapExportContext(int width, int height, double dpi)
         {
             Width = width;
             Height = height;

@@ -117,6 +117,5 @@ namespace Microsoft.Maui.Graphics
             width = Width;
             height = Height;
         }
-        public static implicit operator SizeF(Size s) => new SizeF((float)s.Width,(float)s.Height);
     }
 }

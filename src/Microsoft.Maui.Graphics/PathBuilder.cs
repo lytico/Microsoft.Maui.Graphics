@@ -8,10 +8,10 @@ namespace Microsoft.Maui.Graphics
 {
     public class PathBuilder
     {
-        public static PathF Build(string definition)
+        public static Path Build(string definition)
         {
             if (string.IsNullOrEmpty(definition))
-                return new PathF();
+                return new Path();
 
             var pathBuilder = new PathBuilder();
             var path = pathBuilder.BuildPath(definition);
@@ -21,12 +21,12 @@ namespace Microsoft.Maui.Graphics
         private readonly Stack<string> _commandStack = new Stack<string>();
         private bool _closeWhenDone;
         private char _lastCommand = '~';
-        private PointF? _lastCurveControlPoint;
-        private PointF? _lastMoveTo;
+        private Point? _lastCurveControlPoint;
+        private Point? _lastMoveTo;
 
-        private PathF _path;
-        private PointF? _relativePoint;
-        
+        private Path _path;
+        private Point? _relativePoint;
+
         private bool NextBoolValue
         {
             get
@@ -42,7 +42,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        private float NextValue
+        private double NextValue
         {
             get
             {
@@ -59,9 +59,9 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public static float ParseFloat(string value)
+        public static double ParseFloat(string value)
         {
-            if (float.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var number))
+            if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var number))
             {
                 return number;
             }
@@ -70,19 +70,19 @@ namespace Microsoft.Maui.Graphics
             var split = value.Split(new[] {'.'});
             if (split.Length > 2)
             {
-                if (float.TryParse($"{split[0]}.{split[1]}", NumberStyles.Any, CultureInfo.InvariantCulture, out number))
+                if (double.TryParse($"{split[0]}.{split[1]}", NumberStyles.Any, CultureInfo.InvariantCulture, out number))
                 {
                     return number;
                 }
             }
 
             string stringValue = GetNumbersOnly(value);
-            if (float.TryParse(stringValue, NumberStyles.Any, CultureInfo.InvariantCulture, out number))
+            if (double.TryParse(stringValue, NumberStyles.Any, CultureInfo.InvariantCulture, out number))
             {
                 return number;
             }
 
-            throw new Exception($"Error parsing {value} as a float.");
+            throw new Exception($"Error parsing {value} as a double.");
         }
 
         private static string GetNumbersOnly(string value)
@@ -99,7 +99,7 @@ namespace Microsoft.Maui.Graphics
             return builder.ToString();
         }
 
-        public PathF BuildPath(string pathAsString)
+        public Path BuildPath(string pathAsString)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace Microsoft.Maui.Graphics
                 _lastCurveControlPoint = null;
                 _path = null;
                 _commandStack.Clear();
-                _relativePoint = new PointF(0, 0);
+                _relativePoint = new Point(0, 0);
                 _closeWhenDone = false;
 
 #if DEBUG_PATH
@@ -173,12 +173,12 @@ namespace Microsoft.Maui.Graphics
                 {
                     if (_path == null)
                     {
-                        _path = new PathF();
+                        _path = new Path();
                     }
 
                     string topCommand = _commandStack.Pop();
                     var firstLetter = topCommand[0];
-                    
+
                     if (IsCommand(firstLetter))
                         HandleCommand(topCommand);
                     else
@@ -215,10 +215,10 @@ namespace Microsoft.Maui.Graphics
 
             if (firstLetter == '.')
                 return false;
-            
+
             if (firstLetter == '-')
                 return false;
-            
+
             if (firstLetter == 'e' || firstLetter == 'E')
                 return false;
 
@@ -482,8 +482,8 @@ namespace Microsoft.Maui.Graphics
         private void CurveTo(bool isRelative)
         {
             var point1 = NewPoint(NextValue, NextValue, isRelative, false);
-            float x = NextValue;
-            float y = NextValue;
+            double x = NextValue;
+            double y = NextValue;
 
             bool isQuad = char.IsLetter(_commandStack.Peek()[0]);
             var point2 = NewPoint(x, y, isRelative, isQuad);
@@ -509,7 +509,7 @@ namespace Microsoft.Maui.Graphics
             _lastCurveControlPoint = point1;
             _path.QuadTo(point1, point2);
         }
-        
+
         private void ReflectiveQuadTo(bool isRelative, char? previousCommand)
         {
             var lastPoint = _path.LastPoint;
@@ -533,26 +533,26 @@ namespace Microsoft.Maui.Graphics
 
         private void SmoothCurveTo(bool isRelative)
         {
-            PointF? point1 = null;
+            Point? point1 = null;
             var point2 = NewPoint(NextValue, NextValue, isRelative, false);
 
             // ReSharper disable ConvertIfStatementToNullCoalescingExpression
             if (_lastCurveControlPoint == null && _relativePoint != null)
             {
                 // ReSharper restore ConvertIfStatementToNullCoalescingExpression
-                point1 = Geometry.GetOppositePoint((PointF)_relativePoint, point2);
+                point1 = Geometry.GetOppositePoint((Point)_relativePoint, point2);
             }
             else if (_relativePoint != null && _lastCurveControlPoint != null)
             {
-                point1 = Geometry.GetOppositePoint((PointF)_relativePoint, (PointF)_lastCurveControlPoint);
+                point1 = Geometry.GetOppositePoint((Point)_relativePoint, (Point)_lastCurveControlPoint);
             }
 
             var point3 = NewPoint(NextValue, NextValue, isRelative, true);
             if (point1 != null)
-                _path.CurveTo((PointF)point1, point2, point3);
+                _path.CurveTo((Point)point1, point2, point3);
             _lastCurveControlPoint = point2;
         }
-        
+
         private void ArcTo(bool isRelative)
         {
             var startPoint = _relativePoint ?? default;
@@ -565,7 +565,7 @@ namespace Microsoft.Maui.Graphics
             var sweepFlag = NextBoolValue;
             var endPoint = NewPoint(NextValue, NextValue, isRelative, false);
 
-            var arcPath = new PathF(startPoint);
+            var arcPath = new Path(startPoint);
             arcPath.SVGArcTo(rx, ry, r, largeArcFlag, sweepFlag, endPoint.X, endPoint.Y, startPoint.X, startPoint.Y);
 
             for (int s = 0; s < arcPath.OperationCount; s++)
@@ -575,7 +575,7 @@ namespace Microsoft.Maui.Graphics
 
                 if (segmentType == PathOperation.Move)
                 {
-                    // do nothing   
+                    // do nothing
                 }
                 else if (segmentType == PathOperation.Line)
                 {
@@ -594,17 +594,17 @@ namespace Microsoft.Maui.Graphics
             _relativePoint = _path.LastPoint;
         }
 
-        private PointF NewPoint(float x, float y, bool isRelative, bool isReference)
+        private Point NewPoint(double x, double y, bool isRelative, bool isReference)
         {
-            PointF point = default;
+            Point point = default;
 
             if (isRelative && _relativePoint != null)
             {
-                point = new PointF(((PointF)_relativePoint).X + x, ((PointF)_relativePoint).Y + y);
+                point = new Point(((Point)_relativePoint).X + x, ((Point)_relativePoint).Y + y);
             }
             else
             {
-                point = new PointF(x, y);
+                point = new Point(x, y);
             }
 
             // If this is the reference point, we want to store the location before
@@ -618,17 +618,17 @@ namespace Microsoft.Maui.Graphics
             return point;
         }
 
-        private PointF NewVerticalPoint(float y, bool isRelative, bool isReference)
+        private Point NewVerticalPoint(double y, bool isRelative, bool isReference)
         {
-            PointF point = default;
+            Point point = default;
 
             if (isRelative && _relativePoint != null)
             {
-                point = new PointF(((PointF)_relativePoint).X, ((PointF)_relativePoint).Y + y);
+                point = new Point(((Point)_relativePoint).X, ((Point)_relativePoint).Y + y);
             }
             else if (_relativePoint != null)
             {
-                point = new PointF(((PointF)_relativePoint).X, y);
+                point = new Point(((Point)_relativePoint).X, y);
             }
 
             // If this is the reference point, we want to store the location before
@@ -642,17 +642,17 @@ namespace Microsoft.Maui.Graphics
             return point;
         }
 
-        private PointF NewHorizontalPoint(float x, bool isRelative, bool isReference)
+        private Point NewHorizontalPoint(double x, bool isRelative, bool isReference)
         {
-            PointF point = default;
+            Point point = default;
 
             if (isRelative && _relativePoint != null)
             {
-                point = new PointF(((PointF)_relativePoint).X + x, ((PointF)_relativePoint).Y);
+                point = new Point(((Point)_relativePoint).X + x, ((Point)_relativePoint).Y);
             }
             else if (_relativePoint != null)
             {
-                point = new PointF(x, ((PointF)_relativePoint).Y);
+                point = new Point(x, ((Point)_relativePoint).Y);
             }
 
             // If this is the reference point, we want to store the location before

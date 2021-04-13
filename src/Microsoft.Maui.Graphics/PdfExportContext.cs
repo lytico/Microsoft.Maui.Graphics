@@ -6,16 +6,16 @@ namespace Microsoft.Maui.Graphics
 {
     public abstract class PdfExportContext : IDisposable
     {
-        private readonly float _defaultWidth;
-        private readonly float _defaultHeight;
+        private readonly double _defaultWidth;
+        private readonly double _defaultHeight;
 
-        private float _currentPageWidth;
-        private float _currentPageHeight;
+        private double _currentPageWidth;
+        private double _currentPageHeight;
         private int _pageCount;
 
         protected PdfExportContext(
-            float defaultWidth = -1,
-            float defaultHeight = -1)
+            double defaultWidth = -1,
+            double defaultHeight = -1)
         {
             if (defaultWidth <= 0 || defaultHeight <= 0)
             {
@@ -37,13 +37,13 @@ namespace Microsoft.Maui.Graphics
             _defaultHeight = defaultHeight;
         }
 
-        public float DefaultWidth => _defaultWidth;
+        public double DefaultWidth => _defaultWidth;
 
-        public float DefaultHeight => _defaultHeight;
+        public double DefaultHeight => _defaultHeight;
 
         public int PageCount => _pageCount;
 
-        public void AddPage(float width = -1, float height = -1)
+        public void AddPage(double width = -1, double height = -1)
         {
             if (width <= 0 || height <= 0)
             {
@@ -64,7 +64,7 @@ namespace Microsoft.Maui.Graphics
         {
         }
 
-        protected abstract void AddPageImpl(float width, float height);
+        protected abstract void AddPageImpl(double width, double height);
 
         public abstract ICanvas Canvas { get; }
 

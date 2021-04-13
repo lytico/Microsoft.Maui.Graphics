@@ -4,7 +4,7 @@
     {
         private readonly IPicture _picture;
 
-        public PicturePattern(IPicture picture, float stepX, float stepY) : base(picture.Width, picture.Height, stepX, stepY)
+        public PicturePattern(IPicture picture, double stepX, double stepY) : base(picture.Width, picture.Height, stepX, stepY)
         {
             _picture = picture;
         }

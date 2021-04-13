@@ -28,7 +28,7 @@ namespace Microsoft.Maui.Graphics
 
         public byte[] Bytes => _bytes;
 
-        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(double maxWidthOrHeight, bool disposeOriginal = false)
         {
 #if DEBUG
             Logger.Debug("Downsizing not supported in virtual image.");
@@ -36,7 +36,7 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(double maxWidth, double maxHeight, bool disposeOriginal = false)
         {
 #if DEBUG
             Logger.Debug("Downsizing not supported in virtual image.");
@@ -44,15 +44,15 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(double width, double height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
 #if DEBUG
             Logger.Debug("Resizing not supported in virtual image.");
 #endif
             return this;
         }
-        
-        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
+
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, double quality = 1)
         {
             if (format == _originalFormat)
             {
@@ -64,7 +64,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
+        public Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, double quality = 1)
         {
             if (format == _originalFormat)
             {
@@ -80,9 +80,9 @@ namespace Microsoft.Maui.Graphics
             // Do nothing
         }
 
-        public float Width => _width;
+        public double Width => _width;
 
-        public float Height => _height;
+        public double Height => _height;
 
         private void GetPngDimension(out int width, out int height)
         {

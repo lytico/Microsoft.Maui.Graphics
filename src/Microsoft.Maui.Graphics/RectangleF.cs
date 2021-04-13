@@ -7,13 +7,13 @@ namespace Microsoft.Maui.Graphics
     [DebuggerDisplay("X={X}, Y={Y}, Width={Width}, Height={Height}")]
     public partial struct RectangleF
     {
-        public float X { get; set; }
+        public double X { get; set; }
 
-        public float Y { get; set; }
+        public double Y { get; set; }
 
-        public float Width { get; set; }
+        public double Width { get; set; }
 
-        public float Height { get; set; }
+        public double Height { get; set; }
 
         public static RectangleF Zero = new RectangleF();
 
@@ -24,7 +24,7 @@ namespace Microsoft.Maui.Graphics
         }
 
         // constructors
-        public RectangleF(float x, float y, float width, float height) : this()
+        public RectangleF(double x, double y, double width, double height) : this()
         {
             X = x;
             Y = y;
@@ -32,11 +32,11 @@ namespace Microsoft.Maui.Graphics
             Height = height;
         }
 
-        public RectangleF(PointF loc, SizeF sz) : this(loc.X, loc.Y, sz.Width, sz.Height)
+        public RectangleF(Point loc, Size sz) : this(loc.X, loc.Y, sz.Width, sz.Height)
         {
         }
 
-        public static RectangleF FromLTRB(float left, float top, float right, float bottom)
+        public static RectangleF FromLTRB(double left, double top, double right, double bottom)
         {
             return new RectangleF(left, top, right - left, bottom - top);
         }
@@ -81,12 +81,12 @@ namespace Microsoft.Maui.Graphics
             return X <= rect.X && Right >= rect.Right && Y <= rect.Y && Bottom >= rect.Bottom;
         }
 
-        public bool Contains(PointF pt)
+        public bool Contains(Point pt)
         {
             return Contains(pt.X, pt.Y);
         }
 
-        public bool Contains(float x, float y)
+        public bool Contains(double x, double y)
         {
             return (x >= Left) && (x < Right) && (y >= Top) && (y < Bottom);
         }
@@ -113,10 +113,10 @@ namespace Microsoft.Maui.Graphics
 
         public static RectangleF Intersect(RectangleF r1, RectangleF r2)
         {
-            float x = Math.Max(r1.X, r2.X);
-            float y = Math.Max(r1.Y, r2.Y);
-            float width = Math.Min(r1.Right, r2.Right) - x;
-            float height = Math.Min(r1.Bottom, r2.Bottom) - y;
+            double x = Math.Max(r1.X, r2.X);
+            double y = Math.Max(r1.Y, r2.Y);
+            double width = Math.Min(r1.Right, r2.Right) - x;
+            double height = Math.Min(r1.Bottom, r2.Bottom) - y;
 
             if (width < 0 || height < 0)
             {
@@ -126,25 +126,25 @@ namespace Microsoft.Maui.Graphics
         }
 
         // Position/Size
-        public float Top
+        public double Top
         {
             get => Y;
             set => Y = value;
         }
 
-        public float Bottom
+        public double Bottom
         {
             get => Y + Height;
             set => Height = value - Y;
         }
 
-        public float Right
+        public double Right
         {
             get => X + Width;
             set => Width = value - X;
         }
 
-        public float Left
+        public double Left
         {
             get => X;
             set => X = value;
@@ -152,9 +152,9 @@ namespace Microsoft.Maui.Graphics
 
         public bool IsEmpty => (Width <= 0) || (Height <= 0);
 
-        public SizeF Size
+        public Size Size
         {
-            get => new SizeF(Width, Height);
+            get => new Size(Width, Height);
             set
             {
                 Width = value.Width;
@@ -162,9 +162,9 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PointF Location
+        public Point Location
         {
-            get => new PointF(X, Y);
+            get => new Point(X, Y);
             set
             {
                 X = value.X;
@@ -172,15 +172,15 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PointF Center => new PointF(X + Width / 2, Y + Height / 2);
+        public Point Center => new Point(X + Width / 2, Y + Height / 2);
 
         // Inflate and Offset
-        public RectangleF Inflate(SizeF sz)
+        public RectangleF Inflate(Size sz)
         {
             return Inflate(sz.Width, sz.Height);
         }
 
-        public RectangleF Inflate(float width, float height)
+        public RectangleF Inflate(double width, double height)
         {
             RectangleF r = this;
             r.X -= width;
@@ -190,7 +190,7 @@ namespace Microsoft.Maui.Graphics
             return r;
         }
 
-        public RectangleF Offset(float dx, float dy)
+        public RectangleF Offset(double dx, double dy)
         {
             RectangleF r = this;
             r.X += dx;
@@ -198,17 +198,17 @@ namespace Microsoft.Maui.Graphics
             return r;
         }
 
-        public RectangleF Offset(PointF dr)
+        public RectangleF Offset(Point dr)
         {
             return Offset(dr.X, dr.Y);
         }
 
         public RectangleF Round()
         {
-            return new RectangleF((float)Math.Round(X), (float)Math.Round(Y), (float)Math.Round(Width), (float)Math.Round(Height));
+            return new RectangleF(Math.Round(X), Math.Round(Y), Math.Round(Width), Math.Round(Height));
         }
 
-        public void Deconstruct(out float x, out float y, out float width, out float height)
+        public void Deconstruct(out double x, out double y, out double width, out double height)
         {
             x = X;
             y = Y;

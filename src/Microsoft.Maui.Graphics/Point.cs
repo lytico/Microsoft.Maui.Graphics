@@ -30,12 +30,6 @@ namespace Microsoft.Maui.Graphics
             Y = sz.Height;
         }
 
-        public Point(SizeF sz) : this()
-        {
-            X = sz.Width;
-            Y = sz.Height;
-        }
-
         public override bool Equals(object o)
         {
             if (!(o is Point))
@@ -68,7 +62,7 @@ namespace Microsoft.Maui.Graphics
 
         public Point Round()
         {
-            return new Point((double)Math.Round(X), (double)Math.Round(Y));
+            return new Point(Math.Round(X), Math.Round(Y));
         }
 
         public bool IsEmpty => X == 0 && Y == 0;
@@ -78,12 +72,12 @@ namespace Microsoft.Maui.Graphics
             return new Size(pt.X, pt.Y);
         }
 
-        public static Point operator +(Point pt, SizeF sz)
+        public static Point operator +(Point pt, Size sz)
         {
             return new Point(pt.X + sz.Width, pt.Y + sz.Height);
         }
 
-        public static Point operator -(Point pt, SizeF sz)
+        public static Point operator -(Point pt, Size sz)
         {
             return new Point(pt.X - sz.Width, pt.Y - sz.Height);
         }
@@ -100,7 +94,7 @@ namespace Microsoft.Maui.Graphics
 
         public double Distance(Point other)
         {
-            return (double)Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
+            return Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
         }
 
         public void Deconstruct(out double x, out double y)
@@ -109,6 +103,5 @@ namespace Microsoft.Maui.Graphics
             y = Y;
         }
 
-        public static implicit operator PointF(Point p) => new PointF((float)p.X, (float)p.Y);
     }
 }

@@ -7,24 +7,24 @@ namespace Microsoft.Maui.Graphics
 	[DebuggerDisplay("Red={Red}, Green={Green}, Blue={Blue}, Alpha={Alpha}")]
 	public class Color
 	{
-		public readonly float Red;
-		public readonly float Green;
-		public readonly float Blue;
-		public readonly float Alpha = 1;
+		public readonly double Red;
+		public readonly double Green;
+		public readonly double Blue;
+		public readonly double Alpha = 1;
 
-		public Color(float gray)
+		public Color(double gray)
 		{
 			Red = Green = Blue = gray.Clamp(0,1);
 		}
 
-		public Color(float red, float green, float blue)
+		public Color(double red, double green, double blue)
 		{
 			Red = red.Clamp(0, 1);
 			Green = green.Clamp(0, 1);
 			Blue = blue.Clamp(0, 1);
 		}
 
-		public Color(float red, float green, float blue, float alpha)
+		public Color(double red, double green, double blue, double alpha)
 		{
 			Red = red.Clamp(0,1);
 			Green = green.Clamp(0,1);
@@ -121,26 +121,26 @@ namespace Microsoft.Maui.Graphics
 				StartColor = this
 			};
 		}
-		
-		public Color WithAlpha(float alpha)
+
+		public Color WithAlpha(double alpha)
 		{
 			if (Math.Abs(alpha - Alpha) < Geometry.Epsilon)
 				return this;
-			
+
 			return new Color(Red,Green,Blue, alpha);
 		}
 
-		public Color MultiplyAlpha(float multiplyBy)
+		public Color MultiplyAlpha(double multiplyBy)
 		{
 			return new Color(Red,Green,Blue, Alpha * multiplyBy);
 		}
 
-		public static string ToHex(float r, float g, float b)
+		public static string ToHex(double r, double g, double b)
 		{
 			return "#" + ToHex(r) + ToHex(g) + ToHex(b);
 		}
 
-		private static string ToHex(float value)
+		private static string ToHex(double value)
 		{
 			var intValue = (int)(255f * value);
 			var stringValue = intValue.ToString("X");
@@ -150,11 +150,11 @@ namespace Microsoft.Maui.Graphics
 			return stringValue;
 		}
 
-		public float GetLuminosity()
+		public double GetLuminosity()
         {
-            float v = Math.Max(Red, Green);
+            double v = Math.Max(Red, Green);
             v = Math.Max(v, Blue);
-            float m = Math.Min(Red, Green);
+            double m = Math.Min(Red, Green);
             m = Math.Min(m, Blue);
             var l = (m + v) / 2.0f;
             if (l <= 0.0)
@@ -162,7 +162,7 @@ namespace Microsoft.Maui.Graphics
             return l;
         }
 
-		public Color AddLuminosity(float delta)
+		public Color AddLuminosity(double delta)
 		{
 			ConvertToHsl(Red,Green,Blue, out var h, out var s, out var l);
 			l+= delta;
@@ -170,31 +170,31 @@ namespace Microsoft.Maui.Graphics
 			return FromHsla(h,s,l,Alpha);
 		}
 
-		public Color WithLuminosity(float luminosity)
+		public Color WithLuminosity(double luminosity)
 		{
 			ConvertToHsl(Red, Green, Blue, out var h, out var s, out var l);
 			return FromHsla(h, s, luminosity, Alpha);
 		}
 
-		public float GetSaturation()
+		public double GetSaturation()
         {
 			ConvertToHsl(Red, Green, Blue, out var h, out var s, out var l);
 			return s;
 		}
 
-		public Color WithSaturation(float saturation)
+		public Color WithSaturation(double saturation)
 		{
 			ConvertToHsl(Red, Green, Blue, out var h, out var s, out var l);
 			return FromHsla(h, saturation, l, Alpha);
 		}
 
-		public float GetHue()
+		public double GetHue()
 		{
 			ConvertToHsl(Red, Green, Blue, out var h, out var s, out var l);
 			return h;
 		}
 
-		public Color WithHue(float hue)
+		public Color WithHue(double hue)
 		{
 			ConvertToHsl(Red, Green, Blue, out var h, out var s, out var l);
 			return FromHsla(hue, s, l, Alpha);
@@ -205,7 +205,7 @@ namespace Microsoft.Maui.Graphics
 			return new Color(hex);
         }
 
-		public static Color FromHsva(float h, float s, float v, float a)
+		public static Color FromHsva(double h, double s, double v, double a)
 		{
 			h = h.Clamp(0, 1);
 			s = s.Clamp(0, 1);
@@ -243,13 +243,8 @@ namespace Microsoft.Maui.Graphics
 		}
 
 		public static Color FromRgba(byte red, byte green, byte blue, byte alpha)
-		{ 
-			return new Color(red / 255f, green / 255f, blue / 255f, alpha / 255f);
-		}
-
-		public static Color FromRgb(float red, float green, float blue)
 		{
-			return Color.FromRgba(red, green, blue, 1);
+			return new Color(red / 255f, green / 255f, blue / 255f, alpha / 255f);
 		}
 
 		public static Color FromRgb(double red, double green, double blue)
@@ -257,14 +252,9 @@ namespace Microsoft.Maui.Graphics
 			return Color.FromRgba(red, green, blue, 1);
 		}
 
-		public static Color FromRgba(float r, float g, float b, float a)
-		{
-			return new Color(r, g, b, a);
-		}
-
 		public static Color FromRgba(double r, double g, double b, double a)
 		{
-			return new Color((float)r, (float)g, (float)b, (float)a);
+			return new Color(r, g, b, a);
 		}
 
 		public static Color FromArgb(string colorAsHex)
@@ -312,21 +302,14 @@ namespace Microsoft.Maui.Graphics
 			return FromRgba(red, green, blue, alpha);
 		}
 
-		public static Color FromHsla(float h, float s, float l, float a = 1)
+		public static Color FromHsla(double h, double s, double l, double a = 1)
 		{
-			float red, green, blue;
+			double red, green, blue;
 			ConvertToRgb(h, s, l, out red, out green, out blue);
 			return new Color(red, green, blue, a);
 		}
 
-		public static Color FromHsla(double h, double s, double l, double a = 1)
-		{
-			float red, green, blue;
-			ConvertToRgb((float)h, (float)s, (float)l, out red, out green, out blue);
-			return new Color(red, green, blue, (float)a);
-		}
-
-		public static Color FromHsv(float h, float s, float v)
+		public static Color FromHsv(double h, double s, double v)
 		{
 			return FromHsva(h, s, v, 1f);
 		}
@@ -341,7 +324,7 @@ namespace Microsoft.Maui.Graphics
 			return FromHsva(h / 360f, s / 100f, v / 100f, 1f);
 		}
 
-		private static void ConvertToRgb(float hue, float saturation, float luminosity, out float r, out float g, out float b)
+		private static void ConvertToRgb(double hue, double saturation, double luminosity, out double r, out double g, out double b)
 		{
 			if (luminosity == 0)
 			{
@@ -354,11 +337,11 @@ namespace Microsoft.Maui.Graphics
 				r = g = b = luminosity;
 				return;
 			}
-			float temp2 = luminosity <= 0.5f ? luminosity * (1.0f + saturation) : luminosity + saturation - luminosity * saturation;
-			float temp1 = 2.0f * luminosity - temp2;
+			double temp2 = luminosity <= 0.5f ? luminosity * (1.0f + saturation) : luminosity + saturation - luminosity * saturation;
+			double temp1 = 2.0f * luminosity - temp2;
 
 			var t3 = new[] { hue + 1.0f / 3.0f, hue, hue - 1.0f / 3.0f };
-			var clr = new float[] { 0, 0, 0 };
+			var clr = new double[] { 0, 0, 0 };
 			for (var i = 0; i < 3; i++)
 			{
 				if (t3[i] < 0)
@@ -380,12 +363,12 @@ namespace Microsoft.Maui.Graphics
 			b = clr[2];
 		}
 
-		private static void ConvertToHsl(float r, float g, float b, out float h, out float s, out float l)
+		private static void ConvertToHsl(double r, double g, double b, out double h, out double s, out double l)
 		{
-			float v = Math.Max(r, g);
+			double v = Math.Max(r, g);
 			v = Math.Max(v, b);
 
-			float m = Math.Min(r, g);
+			double m = Math.Min(r, g);
 			m = Math.Min(m, b);
 
 			l = (m + v) / 2.0f;
@@ -394,7 +377,7 @@ namespace Microsoft.Maui.Graphics
 				h = s = l = 0;
 				return;
 			}
-			float vm = v - m;
+			double vm = v - m;
 			s = vm;
 
 			if (s > 0.0)
@@ -408,9 +391,9 @@ namespace Microsoft.Maui.Graphics
 				return;
 			}
 
-			float r2 = (v - r) / vm;
-			float g2 = (v - g) / vm;
-			float b2 = (v - b) / vm;
+			double r2 = (v - r) / vm;
+			double g2 = (v - g) / vm;
+			double b2 = (v - b) / vm;
 
 			if (r == v)
 			{

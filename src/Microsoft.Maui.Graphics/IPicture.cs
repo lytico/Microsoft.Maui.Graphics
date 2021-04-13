@@ -4,12 +4,12 @@ namespace Microsoft.Maui.Graphics
     {
         void Draw(ICanvas canvas);
 
-        float X { get; }
+        double X { get; }
 
-        float Y { get; }
+        double Y { get; }
 
-        float Width { get; }
+        double Width { get; }
 
-        float Height { get; }
+        double Height { get; }
     }
 }

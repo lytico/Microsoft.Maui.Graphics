@@ -6,8 +6,8 @@ namespace Microsoft.Maui.Graphics
 {
     public interface IPdfPage : IDrawable, IDisposable
     {
-        float Width { get; }
-        float Height { get; }
+        double Width { get; }
+        double Height { get; }
         int PageNumber { get; }
 
         void Save(Stream stream);

@@ -4,77 +4,77 @@ namespace Microsoft.Maui.Graphics
 {
     public interface ICanvas
     {
-        public float DisplayScale { get; set; }
-        public float RetinaScale { get; set; }
+        public double DisplayScale { get; set; }
+        public double RetinaScale { get; set; }
 
-        public  float StrokeSize { set; }
-        public  float MiterLimit { set; }
+        public  double StrokeSize { set; }
+        public  double MiterLimit { set; }
         public  Color StrokeColor { set; }
         public  LineCap StrokeLineCap { set; }
         public  LineJoin StrokeLineJoin { set; }
-        public  float[] StrokeDashPattern { set; }
+        public  double[] StrokeDashPattern { set; }
         public  Color FillColor { set; }
         public  Color FontColor { set; }
         public  string FontName { set; }
-        public  float FontSize { set; }
-        public  float Alpha { set; }
+        public  double FontSize { set; }
+        public  double Alpha { set; }
         public  bool Antialias { set; }
         public  BlendMode BlendMode { set; }
 
-        public  void DrawPath(PathF path);
+        public  void DrawPath(Path path);
 
-        public  void FillPath(PathF path, WindingMode windingMode);
-        public  void SubtractFromClip(float x, float y, float width, float height);
-        
-        public  void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero);
+        public  void FillPath(Path path, WindingMode windingMode);
+        public  void SubtractFromClip(double x, double y, double width, double height);
 
-        public  void ClipRectangle(float x, float y, float width, float height);
+        public  void ClipPath(Path path, WindingMode windingMode = WindingMode.NonZero);
 
-        public  void DrawLine(float x1, float y1, float x2, float y2);
+        public  void ClipRectangle(double x, double y, double width, double height);
 
-        public  void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed);
+        public  void DrawLine(double x1, double y1, double x2, double y2);
 
-        public  void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise);
+        public  void DrawArc(double x, double y, double width, double height, double startAngle, double endAngle, bool clockwise, bool closed);
 
-        public  void DrawRectangle(float x, float y, float width, float height);
+        public  void FillArc(double x, double y, double width, double height, double startAngle, double endAngle, bool clockwise);
 
-        public  void FillRectangle(float x, float y, float width, float height);
+        public  void DrawRectangle(double x, double y, double width, double height);
 
-        public  void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius);
+        public  void FillRectangle(double x, double y, double width, double height);
 
-        public  void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius);
+        public  void DrawRoundedRectangle(double x, double y, double width, double height, double cornerRadius);
 
-        public  void DrawEllipse(float x, float y, float width, float height);
+        public  void FillRoundedRectangle(double x, double y, double width, double height, double cornerRadius);
 
-        public  void FillEllipse(float x, float y, float width, float height);
+        public  void DrawEllipse(double x, double y, double width, double height);
 
-        public  void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment);
+        public  void FillEllipse(double x, double y, double width, double height);
+
+        public  void DrawString(string value, double x, double y, HorizontalAlignment horizontalAlignment);
 
         public void DrawString(
             string value,
-            float x,
-            float y,
-            float width,
-            float height,
+            double x,
+            double y,
+            double width,
+            double height,
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment,
             TextFlow textFlow = TextFlow.ClipBounds,
-            float lineSpacingAdjustment = 0);
+            double lineSpacingAdjustment = 0);
 
         public  void DrawText(
-            IAttributedText value, 
-            float x, 
-            float y, 
-            float width,
-            float height);
+            IAttributedText value,
+            double x,
+            double y,
+            double width,
+            double height);
 
-        public  void Rotate(float degrees, float x, float y);
+        public  void Rotate(double degrees, double x, double y);
 
-        public  void Rotate(float degrees);
+        public  void Rotate(double degrees);
 
-        public  void Scale(float sx, float sy);
+        public  void Scale(double sx, double sy);
 
-        public  void Translate(float tx, float ty);
+        public  void Translate(double tx, double ty);
 
         public  void ConcatenateTransform(AffineTransform transform);
 
@@ -84,14 +84,14 @@ namespace Microsoft.Maui.Graphics
 
         public void ResetState();
 
-        public  void SetShadow(SizeF offset, float blur, Color color);
+        public  void SetShadow(Size offset, double blur, Color color);
 
-        public  void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2);
+        public  void SetFillPaint(Paint paint, double x1, double y1, double x2, double y2);
 
         public  void SetToSystemFont();
 
         public  void SetToBoldSystemFont();
 
-        public  void DrawImage(IImage image, float x, float y, float width, float height);
+        public  void DrawImage(IImage image, double x, double y, double width, double height);
     }
 }

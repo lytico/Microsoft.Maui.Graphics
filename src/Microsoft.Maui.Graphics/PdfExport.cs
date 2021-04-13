@@ -11,7 +11,7 @@ namespace Microsoft.Maui.Graphics
             _registeredExportService = exportService;
         }
 
-        public static PdfExportContext CreateContext(float width = -1, float height = -1)
+        public static PdfExportContext CreateContext(double width = -1, double height = -1)
         {
             return CurrentExportService.CreateContext(width, height);
         }

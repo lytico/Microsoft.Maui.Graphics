@@ -2,14 +2,14 @@ namespace Microsoft.Maui.Graphics
 {
     public static class CanvasExtensions
     {
-        public static void DrawLine(this ICanvas target, PointF point1, PointF point2)
+        public static void DrawLine(this ICanvas target, Point point1, Point point2)
         {
             target.DrawLine(point1.X, point1.Y, point2.X, point2.Y);
         }
 
         public static void DrawRectangle(this ICanvas target, Rectangle rect)
         {
-            target.DrawRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+            target.DrawRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void DrawRectangle(this ICanvas target, RectangleF rect)
@@ -19,7 +19,7 @@ namespace Microsoft.Maui.Graphics
 
         public static void FillRectangle(this ICanvas target, Rectangle rect)
         {
-            target.FillRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+            target.FillRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void FillRectangle(this ICanvas target, RectangleF rect)
@@ -29,69 +29,69 @@ namespace Microsoft.Maui.Graphics
 
         public static void DrawRoundedRectangle(this ICanvas target, Rectangle rect, double cornerRadius)
         {
-            target.DrawRoundedRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height, (float)cornerRadius);
+            target.DrawRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius);
         }
 
-        public static void DrawRoundedRectangle(this ICanvas target, RectangleF rect, float cornerRadius)
+        public static void DrawRoundedRectangle(this ICanvas target, RectangleF rect, double cornerRadius)
         {
             target.DrawRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius);
         }
 
-        public static void DrawRoundedRectangle(this ICanvas target, float x, float y, float width, float height, float topLeftCornerRadius, float topRightCornerRadius, float bottomLeftCornerRadius, float bottomRightCornerRadius)
+        public static void DrawRoundedRectangle(this ICanvas target, double x, double y, double width, double height, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius)
         {
-            var path = new PathF();
+            var path = new Path();
             path.AppendRoundedRectangle(x,y,width, height, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
             target.DrawPath(path);
         }
 
         public static void DrawRoundedRectangle(this ICanvas target, Rectangle rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius)
         {
-            var path = new PathF();
-            path.AppendRoundedRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height, (float)topLeftCornerRadius, (float)topRightCornerRadius, (float)bottomLeftCornerRadius, (float)bottomRightCornerRadius);
+            var path = new Path();
+            path.AppendRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
             target.DrawPath(path);
         }
 
-        public static void DrawRoundedRectangle(this ICanvas target, RectangleF rect, float topLeftCornerRadius, float topRightCornerRadius, float bottomLeftCornerRadius, float bottomRightCornerRadius)
+        public static void DrawRoundedRectangle(this ICanvas target, RectangleF rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius)
         {
-            var path = new PathF();
+            var path = new Path();
             path.AppendRoundedRectangle(rect, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
             target.DrawPath(path);
         }
 
         public static void FillRoundedRectangle(this ICanvas target, Rectangle rect, double cornerRadius)
         {
-            target.FillRoundedRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height, (float)cornerRadius);
+            target.FillRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius);
         }
 
-        public static void FillRoundedRectangle(this ICanvas target, RectangleF rect, float cornerRadius)
+        public static void FillRoundedRectangle(this ICanvas target, RectangleF rect, double cornerRadius)
         {
             target.FillRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius);
         }
 
-        public static void FillRoundedRectangle(this ICanvas target, float x, float y, float width, float height, float topLeftCornerRadius, float topRightCornerRadius, float bottomLeftCornerRadius, float bottomRightCornerRadius)
+        public static void FillRoundedRectangle(this ICanvas target, double x, double y, double width, double height, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius)
         {
-            var path = new PathF();
+            var path = new Path();
             path.AppendRoundedRectangle(x,y,width, height, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
             target.FillPath(path);
         }
 
         public static void FillRoundedRectangle(this ICanvas target, Rectangle rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius)
         {
-            var path = new PathF();
-            path.AppendRoundedRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height, (float)topLeftCornerRadius, (float)topRightCornerRadius, (float)bottomLeftCornerRadius, (float)bottomRightCornerRadius);
+            var path = new Path();
+            path.AppendRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
             target.FillPath(path);
         }
 
-        public static void FillRoundedRectangle(this ICanvas target, RectangleF rect, float topLeftCornerRadius, float topRightCornerRadius, float bottomLeftCornerRadius, float bottomRightCornerRadius)
+        public static void FillRoundedRectangle(this ICanvas target, RectangleF rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius)
         {
-            var path = new PathF();
+            var path = new Path();
             path.AppendRoundedRectangle(rect, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius);
             target.FillPath(path);
         }
 
         public static void DrawEllipse(this ICanvas target, Rectangle rect)
         {
-            target.DrawEllipse((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+            target.DrawEllipse(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void DrawEllipse(this ICanvas target, RectangleF rect)
@@ -101,7 +101,7 @@ namespace Microsoft.Maui.Graphics
 
         public static void FillEllipse(this ICanvas target, Rectangle rect)
         {
-            target.FillEllipse((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+            target.FillEllipse(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void FillEllipse(this ICanvas target, RectangleF rect)
@@ -109,29 +109,29 @@ namespace Microsoft.Maui.Graphics
             target.FillEllipse(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
-        public static void DrawPath(this ICanvas target, PathF path)
+        public static void DrawPath(this ICanvas target, Path path)
         {
             target.DrawPath(path);
         }
 
-        public static void FillPath(this ICanvas target, PathF path)
+        public static void FillPath(this ICanvas target, Path path)
         {
             target.FillPath(path, WindingMode.NonZero);
         }
 
-        public static void FillPath(this ICanvas target, PathF path, WindingMode windingMode)
+        public static void FillPath(this ICanvas target, Path path, WindingMode windingMode)
         {
             target.FillPath(path, windingMode);
         }
 
-        public static void ClipPath(this ICanvas target, PathF path, WindingMode windingMode = WindingMode.NonZero)
+        public static void ClipPath(this ICanvas target, Path path, WindingMode windingMode = WindingMode.NonZero)
         {
             target.ClipPath(path, windingMode);
         }
 
         public static void ClipRectangle(this ICanvas target, Rectangle rect)
         {
-            target.ClipRectangle((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+            target.ClipRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void ClipRectangle(this ICanvas target, RectangleF rect)
@@ -146,9 +146,9 @@ namespace Microsoft.Maui.Graphics
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment,
             TextFlow textFlow = TextFlow.ClipBounds,
-            float lineSpacingAdjustment = 0)
+            double lineSpacingAdjustment = 0)
         {
-            target.DrawString(value, (float)bounds.X, (float)bounds.Y, (float)bounds.Width, (float)bounds.Height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
+            target.DrawString(value, bounds.X, bounds.Y, bounds.Width, bounds.Height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
         }
 
         public static void DrawString(
@@ -158,12 +158,12 @@ namespace Microsoft.Maui.Graphics
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment,
             TextFlow textFlow = TextFlow.ClipBounds,
-            float lineSpacingAdjustment = 0)
+            double lineSpacingAdjustment = 0)
         {
             target.DrawString(value, bounds.X, bounds.Y, bounds.Width, bounds.Height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
         }
 
-        public static void FillCircle(this ICanvas target, float centerX, float centerY, float radius)
+        public static void FillCircle(this ICanvas target, double centerX, double centerY, double radius)
         {
             var x = centerX - radius;
             var y = centerY - radius;
@@ -178,19 +178,10 @@ namespace Microsoft.Maui.Graphics
             var y = center.Y - radius;
             var size = radius * 2;
 
-            target.FillEllipse((float)x, (float)y, (float)size, (float)size);
-        }
-
-        public static void FillCircle(this ICanvas target, PointF center, float radius)
-        {
-            var x = center.X - radius;
-            var y = center.Y - radius;
-            var size = radius * 2;
-
             target.FillEllipse(x, y, size, size);
         }
 
-        public static void DrawCircle(this ICanvas target, float centerX, float centerY, float radius)
+        public static void DrawCircle(this ICanvas target, double centerX, double centerY, double radius)
         {
             var x = centerX - radius;
             var y = centerY - radius;
@@ -200,15 +191,6 @@ namespace Microsoft.Maui.Graphics
         }
 
         public static void DrawCircle(this ICanvas target, Point center, double radius)
-        {
-            var x = center.X - radius;
-            var y = center.Y - radius;
-            var size = radius * 2;
-
-            target.DrawEllipse((float)x, (float)y, (float)size, (float)size);
-        }
-
-        public static void DrawCircle(this ICanvas target, PointF center, float radius)
         {
             var x = center.X - radius;
             var y = center.Y - radius;
@@ -231,7 +213,7 @@ namespace Microsoft.Maui.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="paint">The paint</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, Paint paint, bool clockwise)
+        public static void FillArc(this ICanvas canvas, double x, double y, double width, double height, double startAngle, double endAngle, Paint paint, bool clockwise)
         {
             var rectangle = new RectangleF(x, y, width, height);
             canvas.SetFillPaint(paint, rectangle);
@@ -248,7 +230,7 @@ namespace Microsoft.Maui.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
         /// <param name="closed">If the arc is closed or not</param>
-        public static void DrawArc(this ICanvas canvas, RectangleF bounds, float startAngle, float endAngle, bool clockwise, bool closed)
+        public static void DrawArc(this ICanvas canvas, RectangleF bounds, double startAngle, double endAngle, bool clockwise, bool closed)
         {
             canvas.DrawArc(bounds.X, bounds.Y, bounds.Width, bounds.Height, startAngle, endAngle, clockwise, closed);
         }
@@ -263,9 +245,9 @@ namespace Microsoft.Maui.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
         /// <param name="closed">If the arc is closed or not</param>
-        public static void DrawArc(this ICanvas canvas, Rectangle bounds, float startAngle, float endAngle, bool clockwise, bool closed)
+        public static void DrawArc(this ICanvas canvas, Rectangle bounds, double startAngle, double endAngle, bool clockwise, bool closed)
         {
-            canvas.DrawArc((float)bounds.X, (float)bounds.Y, (float)bounds.Width, (float)bounds.Height, startAngle, endAngle, clockwise, closed);
+            canvas.DrawArc(bounds.X, bounds.Y, bounds.Width, bounds.Height, startAngle, endAngle, clockwise, closed);
         }
 
 
@@ -278,7 +260,7 @@ namespace Microsoft.Maui.Graphics
         /// <param name="startAngle">The start angle</param>
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this ICanvas canvas, RectangleF bounds, float startAngle, float endAngle, bool clockwise)
+        public static void FillArc(this ICanvas canvas, RectangleF bounds, double startAngle, double endAngle, bool clockwise)
         {
             canvas.FillArc(bounds.X, bounds.Y, bounds.Width, bounds.Height, startAngle, endAngle, clockwise);
         }
@@ -292,9 +274,9 @@ namespace Microsoft.Maui.Graphics
         /// <param name="startAngle">The start angle</param>
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this ICanvas canvas, Rectangle bounds, float startAngle, float endAngle, bool clockwise)
+        public static void FillArc(this ICanvas canvas, Rectangle bounds, double startAngle, double endAngle, bool clockwise)
         {
-            canvas.FillArc((float)bounds.X, (float)bounds.Y, (float)bounds.Width, (float)bounds.Height, startAngle, endAngle, clockwise);
+            canvas.FillArc(bounds.X, bounds.Y, bounds.Width, bounds.Height, startAngle, endAngle, clockwise);
         }
 
         /// <summary>
@@ -302,7 +284,7 @@ namespace Microsoft.Maui.Graphics
         /// </summary>
         /// <param name="canvas">canvas</param>
         /// <param name="zoom">Zoom.</param>
-        public static void EnableDefaultShadow(this ICanvas canvas, float zoom = 1)
+        public static void EnableDefaultShadow(this ICanvas canvas, double zoom = 1)
         {
             canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
         }
@@ -353,7 +335,7 @@ namespace Microsoft.Maui.Graphics
 
         public static void SubtractFromClip(this ICanvas target, Rectangle rect)
         {
-            target.SubtractFromClip((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+            target.SubtractFromClip(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void SubtractFromClip(this ICanvas target, RectangleF rect)
@@ -363,17 +345,12 @@ namespace Microsoft.Maui.Graphics
 
         public static void SetFillPaint(this ICanvas target, Paint paint, Point point1, Point point2)
         {
-            target.SetFillPaint(paint, (float)point1.X, (float)point1.Y, (float)point2.X, (float)point2.Y);
-        }
-
-        public static void SetFillPaint(this ICanvas target, Paint paint, PointF point1, PointF point2)
-        {
             target.SetFillPaint(paint, point1.X, point1.Y, point2.X, point2.Y);
         }
 
         public static void SetFillPaint(this ICanvas target, Paint paint, Rectangle rectangle)
         {
-            target.SetFillPaint(paint, (float)rectangle.Left, (float)rectangle.Top, (float)rectangle.Bottom, (float)rectangle.Right);
+            target.SetFillPaint(paint, rectangle.Left, rectangle.Top, rectangle.Bottom, rectangle.Right);
         }
 
         public static void SetFillPaint(this ICanvas target, Paint paint, RectangleF rectangle)

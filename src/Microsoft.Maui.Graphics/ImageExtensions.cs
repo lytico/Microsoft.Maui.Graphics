@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Graphics
 {
     public static class ImageExtensions
     {
-        public static byte[] AsBytes(this IImage target, ImageFormat format = ImageFormat.Png, float quality = 1)
+        public static byte[] AsBytes(this IImage target, ImageFormat format = ImageFormat.Png, double quality = 1)
         {
             if (target == null)
                 return null;
@@ -18,7 +18,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public static Stream AsStream(this IImage target, ImageFormat format = ImageFormat.Png, float quality = 1)
+        public static Stream AsStream(this IImage target, ImageFormat format = ImageFormat.Png, double quality = 1)
         {
             if (target == null)
                 return null;
@@ -30,7 +30,7 @@ namespace Microsoft.Maui.Graphics
             return stream;
         }
 
-        public static async Task<byte[]> AsBytesAsync(this IImage target, ImageFormat format = ImageFormat.Png, float quality = 1)
+        public static async Task<byte[]> AsBytesAsync(this IImage target, ImageFormat format = ImageFormat.Png, double quality = 1)
         {
             if (target == null)
                 return null;
@@ -41,8 +41,8 @@ namespace Microsoft.Maui.Graphics
                 return stream.ToArray();
             }
         }
-        
-        public static string AsBase64(this IImage target, ImageFormat format = ImageFormat.Png, float quality = 1)
+
+        public static string AsBase64(this IImage target, ImageFormat format = ImageFormat.Png, double quality = 1)
         {
             if (target == null)
                 return null;

@@ -5,7 +5,7 @@ namespace Microsoft.Maui.Graphics.Text
 {
     public static class TextAttributeExtensions
     {
-        public const float DefaultFontSize = 12f;
+        public const double DefaultFontSize = 12f;
 
         public static string GetFontName(this ITextAttributes attributes)
         {
@@ -19,16 +19,16 @@ namespace Microsoft.Maui.Graphics.Text
             attributes.SetAttribute(TextAttribute.FontName, value);
         }
 
-        public static float GetFontSize(
+        public static double GetFontSize(
             this ITextAttributes attributes,
-            float? fontSize = null)
+            double? fontSize = null)
         {
             return attributes.GetFloatAttribute(TextAttribute.FontName, fontSize ?? DefaultFontSize);
         }
 
         public static void SetFontSize(
             this Dictionary<TextAttribute, string> attributes,
-            float value)
+            double value)
         {
             attributes.SetFloatAttribute(TextAttribute.FontName, value, DefaultFontSize);
         }

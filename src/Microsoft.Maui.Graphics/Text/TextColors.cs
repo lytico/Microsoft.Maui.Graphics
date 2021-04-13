@@ -150,7 +150,7 @@ namespace Microsoft.Maui.Graphics.Text
             {"WHITE", "#FFFFFF"}
         };
 
-        public static float[] Parse(this string color)
+        public static double[] Parse(this string color)
         {
             if (string.IsNullOrEmpty(color))
                 return null;
@@ -190,7 +190,7 @@ namespace Microsoft.Maui.Graphics.Text
                 alpha = int.Parse(color.Substring(7, 2), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture);
             }
 
-            return new[] {red / 255f, green / 255f, blue / 255f, alpha / 255f};
+            return new[] {red / 255d, green / 255d, blue / 255d, alpha / 255d};
         }
 
         public static int[] ParseAsInts(this string color)

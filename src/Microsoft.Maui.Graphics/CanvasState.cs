@@ -4,9 +4,9 @@ namespace Microsoft.Maui.Graphics
 {
     public class CanvasState : IDisposable
     {
-        public float[] StrokeDashPattern { get; set; }
-        public float StrokeSize { get; set; } = 1;
-        public float Scale { get; set; } = 1;
+        public double[] StrokeDashPattern { get; set; }
+        public double StrokeSize { get; set; } = 1;
+        public double Scale { get; set; } = 1;
         public AffineTransform Transform { get; set; }
 
         protected CanvasState()

@@ -5,10 +5,10 @@ namespace Microsoft.Maui.Graphics
         public IPattern Wrapped { get; }
         public Paint Paint { get; set; }
 
-        public float Width => Wrapped?.Width ?? 0;
-        public float Height => Wrapped?.Height ?? 0;
-        public float StepX => Wrapped?.StepX ?? 0;
-        public float StepY => Wrapped?.StepY ?? 0;
+        public double Width => Wrapped?.Width ?? 0;
+        public double Height => Wrapped?.Height ?? 0;
+        public double StepX => Wrapped?.StepX ?? 0;
+        public double StepY => Wrapped?.StepY ?? 0;
 
         public PaintPattern(IPattern pattern)
         {

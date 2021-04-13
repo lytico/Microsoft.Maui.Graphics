@@ -8,10 +8,10 @@ namespace Microsoft.Maui.Graphics
     {
         private readonly ICanvas _canvas;
         private readonly IBlurrableCanvas _blurrableCanvas;
-        private readonly Stack<float> _scaleXStack = new Stack<float>();
-        private readonly Stack<float> _scaleYStack = new Stack<float>();
-        private float _scaleX = 1f;
-        private float _scaleY = 1f;
+        private readonly Stack<double> _scaleXStack = new Stack<double>();
+        private readonly Stack<double> _scaleYStack = new Stack<double>();
+        private double _scaleX = 1f;
+        private double _scaleY = 1f;
 
         public ScalingCanvas(ICanvas wrapped)
         {
@@ -19,13 +19,13 @@ namespace Microsoft.Maui.Graphics
             _blurrableCanvas = _canvas as IBlurrableCanvas;
         }
 
-        public float RetinaScale
+        public double RetinaScale
         {
             get => _canvas.RetinaScale;
             set => _canvas.RetinaScale = value;
         }
-        
-        public float DisplayScale
+
+        public double DisplayScale
         {
             get => _canvas.DisplayScale;
             set => _canvas.DisplayScale = value;
@@ -35,12 +35,12 @@ namespace Microsoft.Maui.Graphics
 
         public ICanvas ParentCanvas => _canvas;
 
-        public float StrokeSize
+        public double StrokeSize
         {
             set => _canvas.StrokeSize = value;
         }
 
-        public float MiterLimit
+        public double MiterLimit
         {
             set => _canvas.MiterLimit = value;
         }
@@ -54,8 +54,8 @@ namespace Microsoft.Maui.Graphics
         {
             set => _canvas.StrokeLineCap = value;
         }
-        
-        public float Alpha
+
+        public double Alpha
         {
             set => _canvas.Alpha = value;
         }
@@ -65,7 +65,7 @@ namespace Microsoft.Maui.Graphics
             set => _canvas.StrokeLineJoin = value;
         }
 
-        public float[] StrokeDashPattern
+        public double[] StrokeDashPattern
         {
             set => _canvas.StrokeDashPattern = value;
         }
@@ -85,7 +85,7 @@ namespace Microsoft.Maui.Graphics
             set => _canvas.FontName = value;
         }
 
-        public float FontSize
+        public double FontSize
         {
             set => _canvas.FontSize = value;
         }
@@ -100,123 +100,123 @@ namespace Microsoft.Maui.Graphics
             set => _canvas.Antialias = value;
         }
 
-        public void SubtractFromClip(float x1, float y1, float x2, float y2)
+        public void SubtractFromClip(double x1, double y1, double x2, double y2)
         {
             _canvas.SubtractFromClip(x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }
-        
-        public void DrawLine(float x1, float y1, float x2, float y2)
+
+        public void DrawLine(double x1, double y1, double x2, double y2)
         {
             _canvas.DrawLine(x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }
 
-        public void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
+        public void DrawArc(double x, double y, double width, double height, double startAngle, double endAngle, bool clockwise, bool closed)
         {
             _canvas.DrawArc(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, startAngle, endAngle, clockwise, closed);
         }
 
-        public void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise)
+        public void FillArc(double x, double y, double width, double height, double startAngle, double endAngle, bool clockwise)
         {
             _canvas.FillArc(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, startAngle, endAngle, clockwise);
         }
 
-        public void DrawEllipse(float x, float y, float width, float height)
+        public void DrawEllipse(double x, double y, double width, double height)
         {
             _canvas.DrawEllipse(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void DrawImage(IImage image, float x, float y, float width, float height)
+        public void DrawImage(IImage image, double x, double y, double width, double height)
         {
             _canvas.DrawImage(image, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
-        
-        public void DrawRectangle(float x, float y, float width, float height)
+
+        public void DrawRectangle(double x, double y, double width, double height)
         {
             _canvas.DrawRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public void DrawRoundedRectangle(double x, double y, double width, double height, double cornerRadius)
         {
             _canvas.DrawRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
+        public void DrawString(string value, double x, double y, HorizontalAlignment horizontalAlignment)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, horizontalAlignment);
         }
 
-        public void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
-            TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0)
+        public void DrawString(string value, double x, double y, double width, double height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, double lineSpacingAdjustment = 0)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, horizontalAlignment, verticalAlignment, textFlow);
         }
-        
-        public void DrawText(IAttributedText value, float x, float y, float width, float height)
+
+        public void DrawText(IAttributedText value, double x, double y, double width, double height)
         {
             _canvas.DrawText(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void FillEllipse(float x, float y, float width, float height)
+        public void FillEllipse(double x, double y, double width, double height)
         {
             _canvas.FillEllipse(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void FillRectangle(float x, float y, float width, float height)
+        public void FillRectangle(double x, double y, double width, double height)
         {
             _canvas.FillRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public void FillRoundedRectangle(double x, double y, double width, double height, double cornerRadius)
         {
             _canvas.FillRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public void DrawPath(PathF path)
+        public void DrawPath(Path path)
         {
             var scaledPath = path.AsScaledPath(_scaleX);
             _canvas.DrawPath(scaledPath);
         }
 
-        public void FillPath(PathF path, WindingMode windingMode)
+        public void FillPath(Path path, WindingMode windingMode)
         {
             var scaledPath = path.AsScaledPath(_scaleX);
             _canvas.FillPath(scaledPath, windingMode);
         }
 
-        public void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
+        public void ClipPath(Path path, WindingMode windingMode = WindingMode.NonZero)
         {
             var scaledPath = path.AsScaledPath(_scaleX);
             _canvas.ClipPath(scaledPath, windingMode);
         }
 
-        public void ClipRectangle(float x, float y, float width, float height)
+        public void ClipRectangle(double x, double y, double width, double height)
         {
             _canvas.ClipRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void Rotate(float degrees, float x, float y)
+        public void Rotate(double degrees, double x, double y)
         {
             _canvas.Rotate(degrees, x * _scaleX, y * _scaleY);
         }
 
-        public void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
+        public void SetFillPaint(Paint paint, double x1, double y1, double x2, double y2)
         {
             _canvas.SetFillPaint(paint, x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }
 
-        public void Rotate(float degrees)
+        public void Rotate(double degrees)
         {
             _canvas.Rotate(degrees);
         }
 
-        public void Scale(float sx, float sy)
+        public void Scale(double sx, double sy)
         {
             _scaleX *= Math.Abs(sx);
             _scaleY *= Math.Abs(sy);
             _canvas.Scale(sx, sy);
         }
 
-        public void Translate(float tx, float ty)
+        public void Translate(double tx, double ty)
         {
             _canvas.Translate(tx, ty);
         }
@@ -261,12 +261,12 @@ namespace Microsoft.Maui.Graphics
             return restored;
         }
 
-        public float GetScale()
+        public double GetScale()
         {
             return _scaleX;
         }
 
-        public void SetShadow(SizeF offset, float blur, Color color)
+        public void SetShadow(Size offset, double blur, Color color)
         {
             _canvas.SetShadow(offset, blur, color);
         }
@@ -281,7 +281,7 @@ namespace Microsoft.Maui.Graphics
             _canvas.SetToBoldSystemFont();
         }
 
-        public void SetBlur(float blurRadius)
+        public void SetBlur(double blurRadius)
         {
             _blurrableCanvas?.SetBlur(blurRadius);
         }

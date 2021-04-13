@@ -214,6 +214,6 @@ namespace Microsoft.Maui.Graphics
             width = Width;
             height = Height;
         }
-        public static implicit operator RectangleF(Rectangle rect) => new RectangleF((float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
+        public static implicit operator RectangleF(Rectangle rect) => new RectangleF(rect.X, rect.Y, rect.Width, rect.Height);
     }
 }

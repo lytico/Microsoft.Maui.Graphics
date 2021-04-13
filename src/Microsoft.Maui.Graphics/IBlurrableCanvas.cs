@@ -2,6 +2,6 @@
 {
     public interface IBlurrableCanvas
     {
-        void SetBlur(float blurRadius);
+        void SetBlur(double blurRadius);
     }
 }

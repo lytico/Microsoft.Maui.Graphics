@@ -5,12 +5,12 @@ namespace Microsoft.Maui.Graphics
 {
     public class InsetsF
     {
-        private float _bottom;
-        private float _left;
-        private float _right;
-        private float _top;
+        private double _bottom;
+        private double _left;
+        private double _right;
+        private double _top;
 
-        public InsetsF(float top, float left, float bottom, float right)
+        public InsetsF(double top, double left, double bottom, double right)
         {
             _top = top;
             _left = left;
@@ -22,25 +22,25 @@ namespace Microsoft.Maui.Graphics
         {
         }
 
-        public float Top
+        public double Top
         {
             get => _top;
             set => _top = value;
         }
 
-        public float Left
+        public double Left
         {
             get => _left;
             set => _left = value;
         }
 
-        public float Bottom
+        public double Bottom
         {
             get => _bottom;
             set => _bottom = value;
         }
 
-        public float Right
+        public double Right
         {
             get => _right;
             set => _right = value;
@@ -49,14 +49,14 @@ namespace Microsoft.Maui.Graphics
         /// <summary>
         /// The sum of the left and right insets.
         /// </summary>
-        public float Horizontal => _left + _right;
+        public double Horizontal => _left + _right;
 
         /// <summary>
         /// The sum of the top and bottom insets.
         /// </summary>
-        public float Vertical => _top + _bottom;
+        public double Vertical => _top + _bottom;
 
-        public bool AllValuesAreEqualTo(float value)
+        public bool AllValuesAreEqualTo(double value)
         {
             return Math.Abs(_top - value) < Geometry.Epsilon && Math.Abs(_left - value) < Geometry.Epsilon && Math.Abs(_right - value) < Geometry.Epsilon &&
                    Math.Abs(_bottom - value) < Geometry.Epsilon;
@@ -94,10 +94,10 @@ namespace Microsoft.Maui.Graphics
             try
             {
                 var values = value.Split(',');
-                float top = float.Parse(values[0], CultureInfo.InvariantCulture);
-                float left = float.Parse(values[1], CultureInfo.InvariantCulture);
-                float bottom = float.Parse(values[2], CultureInfo.InvariantCulture);
-                float right = float.Parse(values[3], CultureInfo.InvariantCulture);
+                double top = double.Parse(values[0], CultureInfo.InvariantCulture);
+                double left = double.Parse(values[1], CultureInfo.InvariantCulture);
+                double bottom = double.Parse(values[2], CultureInfo.InvariantCulture);
+                double right = double.Parse(values[3], CultureInfo.InvariantCulture);
                 return new InsetsF(top, left, bottom, right);
             }
             catch (Exception exc)

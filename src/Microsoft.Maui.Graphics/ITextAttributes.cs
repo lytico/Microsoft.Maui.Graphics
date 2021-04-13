@@ -4,9 +4,9 @@ namespace Microsoft.Maui.Graphics
     {
         string FontName { get; set; }
 
-        float FontSize { get; set; }
+        double FontSize { get; set; }
 
-        float Margin { get; set; }
+        double Margin { get; set; }
 
         Color TextFontColor { get; set; }
 

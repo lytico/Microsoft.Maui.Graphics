@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace Microsoft.Maui.Graphics
 {
-    public class PathF : IDisposable
+    public class Path : IDisposable
     {
-        private readonly List<float> _arcAngles;
+        private readonly List<double> _arcAngles;
         private readonly List<bool> _arcClockwise;
-        private readonly List<PointF> _points;
+        private readonly List<Point> _points;
         private readonly List<PathOperation> _operations;
         private int _subPathCount;
         private readonly List<bool> _subPathsClosed;
 
         private object _nativePath;
 
-        private PathF(List<PointF> points, List<float> arcSizes, List<bool> arcClockwise, List<PathOperation> operations, int subPathCount)
+        private Path(List<Point> points, List<double> arcSizes, List<bool> arcClockwise, List<PathOperation> operations, int subPathCount)
         {
             _points = points;
             _arcAngles = arcSizes;
@@ -39,10 +39,10 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PathF(PathF path) : this()
+        public Path(Path path) : this()
         {
             _operations.AddRange(path._operations);
-            _points = new List<PointF>(path._points);
+            _points = new List<Point>(path._points);
 
             _arcAngles.AddRange(path._arcAngles);
             _arcClockwise.AddRange(path._arcClockwise);
@@ -51,22 +51,22 @@ namespace Microsoft.Maui.Graphics
             _subPathsClosed = new List<bool>(path._subPathsClosed);
         }
 
-        public PathF(PointF point) : this()
+        public Path(Point point) : this()
         {
             MoveTo(point.X, point.Y);
         }
 
-        public PathF(float x, float y) : this(new PointF(x, y))
+        public Path(double x, double y) : this(new Point(x, y))
         {
             MoveTo(x,y);
         }
 
-        public PathF()
+        public Path()
         {
             _subPathCount = 0;
-            _arcAngles = new List<float>();
+            _arcAngles = new List<double>();
             _arcClockwise = new List<bool>();
-            _points = new List<PointF>();
+            _points = new List<Point>();
             _operations = new List<PathOperation>();
             _subPathsClosed = new List<bool>();
         }
@@ -84,7 +84,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PointF FirstPoint
+        public Point FirstPoint
         {
             get
             {
@@ -104,7 +104,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public IEnumerable<PointF> Points
+        public IEnumerable<Point> Points
         {
             get
             {
@@ -113,7 +113,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PointF LastPoint
+        public Point LastPoint
         {
             get
             {
@@ -135,7 +135,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PointF this[int index]
+        public Point this[int index]
         {
             get
             {
@@ -147,13 +147,13 @@ namespace Microsoft.Maui.Graphics
             //set { points[index] = value; }
         }
 
-        public void SetPoint(int index, float x, float y)
+        public void SetPoint(int index, double x, double y)
         {
-            _points[index] = new PointF(x, y);
+            _points[index] = new Point(x, y);
             Invalidate();
         }
 
-        public void SetPoint(int index, PointF point)
+        public void SetPoint(int index, Point point)
         {
             _points[index] = point;
             Invalidate();
@@ -195,7 +195,7 @@ namespace Microsoft.Maui.Graphics
             return _operations[aIndex];
         }
 
-        public float GetArcAngle(int aIndex)
+        public double GetArcAngle(int aIndex)
         {
             if (_arcAngles.Count > aIndex)
             {
@@ -205,7 +205,7 @@ namespace Microsoft.Maui.Graphics
             return 0;
         }
 
-        public void SetArcAngle(int aIndex, float aValue)
+        public void SetArcAngle(int aIndex, double aValue)
         {
             if (_arcAngles.Count > aIndex)
             {
@@ -235,12 +235,12 @@ namespace Microsoft.Maui.Graphics
             Invalidate();
         }
 
-        public PathF MoveTo(float x, float y)
+        public Path MoveTo(double x, double y)
         {
-            return MoveTo(new PointF(x, y));
+            return MoveTo(new Point(x, y));
         }
 
-        public PathF MoveTo(PointF aPoint)
+        public Path MoveTo(Point aPoint)
         {
             _subPathCount++;
             _subPathsClosed.Add(false);
@@ -274,12 +274,12 @@ namespace Microsoft.Maui.Graphics
             Invalidate();
         }
 
-        public PathF LineTo(float x, float y)
+        public Path LineTo(double x, double y)
         {
-            return LineTo(new PointF(x, y));
+            return LineTo(new Point(x, y));
         }
 
-        public PathF LineTo(PointF point)
+        public Path LineTo(Point point)
         {
             if (_points.Count == 0)
             {
@@ -299,7 +299,7 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public PathF InsertLineTo(PointF point, int index)
+        public Path InsertLineTo(Point point, int index)
         {
             if (index == 0)
             {
@@ -321,12 +321,12 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public PathF AddArc(float x1, float y1, float x2, float y2, float startAngle, float endAngle, bool clockwise)
+        public Path AddArc(double x1, double y1, double x2, double y2, double startAngle, double endAngle, bool clockwise)
         {
-            return AddArc(new PointF(x1, y1), new PointF(x2, y2), startAngle, endAngle, clockwise);
+            return AddArc(new Point(x1, y1), new Point(x2, y2), startAngle, endAngle, clockwise);
         }
 
-        public PathF AddArc(PointF topLeft, PointF bottomRight, float startAngle, float endAngle, bool clockwise)
+        public Path AddArc(Point topLeft, Point bottomRight, double startAngle, double endAngle, bool clockwise)
         {
             if (Count == 0 || OperationCount == 0 || GetSegmentType(OperationCount - 1) == PathOperation.Close)
             {
@@ -344,12 +344,12 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public PathF QuadTo(float cx, float cy, float x, float y)
+        public Path QuadTo(double cx, double cy, double x, double y)
         {
-            return QuadTo(new PointF(cx, cy), new PointF(x, y));
+            return QuadTo(new Point(cx, cy), new Point(x, y));
         }
 
-        public PathF QuadTo(PointF controlPoint, PointF point)
+        public Path QuadTo(Point controlPoint, Point point)
         {
             _points.Add(controlPoint);
             _points.Add(point);
@@ -358,7 +358,7 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public PathF InsertQuadTo(PointF controlPoint, PointF point, int index)
+        public Path InsertQuadTo(Point controlPoint, Point point, int index)
         {
             if (index == 0)
             {
@@ -381,12 +381,12 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public PathF CurveTo(float c1X, float c1Y, float c2X, float c2Y, float x, float y)
+        public Path CurveTo(double c1X, double c1Y, double c2X, double c2Y, double x, double y)
         {
-            return CurveTo(new PointF(c1X, c1Y), new PointF(c2X, c2Y), new PointF(x, y));
+            return CurveTo(new Point(c1X, c1Y), new Point(c2X, c2Y), new Point(x, y));
         }
 
-        public PathF CurveTo(PointF controlPoint1, PointF controlPoint2, PointF point)
+        public Path CurveTo(Point controlPoint1, Point controlPoint2, Point point)
         {
             _points.Add(controlPoint1);
             _points.Add(controlPoint2);
@@ -396,7 +396,7 @@ namespace Microsoft.Maui.Graphics
             return this;
         }
 
-        public PathF InsertCurveTo(PointF controlPoint1, PointF controlPoint2, PointF point, int index)
+        public Path InsertCurveTo(Point controlPoint1, Point controlPoint2, Point point, int index)
         {
             if (index == 0)
             {
@@ -592,7 +592,7 @@ namespace Microsoft.Maui.Graphics
             return -1;
         }
 
-        public PointF[] GetPointsForSegment(int segmentIndex)
+        public Point[] GetPointsForSegment(int segmentIndex)
         {
             if (segmentIndex <= OperationCount)
             {
@@ -655,7 +655,7 @@ namespace Microsoft.Maui.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            return new PointF[] { };
+                            return new Point[] { };
                         }
                     }
                 }
@@ -778,7 +778,7 @@ namespace Microsoft.Maui.Graphics
                                 {
                                     if (points.Length > 0)
                                     {
-                                        _points[pointIndex] = (PointF) points[points.Length - 1];
+                                        _points[pointIndex] = points[points.Length - 1];
                                         for (var i = 0; i < points.Length; i++)
                                         {
                                             _points.RemoveAt(pointIndex + 1);
@@ -859,9 +859,9 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public PathF Rotate(float angleAsDegrees, PointF pivot)
+        public Path Rotate(double angleAsDegrees, Point pivot)
         {
-            var path = new PathF();
+            var path = new Path();
 
             var index = 0;
             var arcIndex = 0;
@@ -911,7 +911,7 @@ namespace Microsoft.Maui.Graphics
             return path;
         }
 
-        public PointF GetRotatedPoint(int pointIndex, PointF pivotPoint, float angle)
+        public Point GetRotatedPoint(int pointIndex, Point pivotPoint, double angle)
         {
             var point = _points[pointIndex];
             return Geometry.RotatePoint(pivotPoint, point, angle);
@@ -925,13 +925,13 @@ namespace Microsoft.Maui.Graphics
             Invalidate();
         }
 
-        public List<PathF> Separate()
+        public List<Path> Separate()
         {
-            var vPaths = new List<PathF>();
+            var vPaths = new List<Path>();
             if (_points == null || _operations == null)
                 return vPaths;
 
-            PathF vPath = null;
+            Path vPath = null;
 
             // ReSharper disable PossibleNullReferenceException
             var i = 0;
@@ -942,7 +942,7 @@ namespace Microsoft.Maui.Graphics
             {
                 if (vType == PathOperation.Move)
                 {
-                    vPath = new PathF();
+                    vPath = new Path();
                     vPaths.Add(vPath);
                     vPath.MoveTo(_points[i++]);
                 }
@@ -973,12 +973,12 @@ namespace Microsoft.Maui.Graphics
             return vPaths;
         }
 
-        public PathF Reverse()
+        public Path Reverse()
         {
-            var points = new List<PointF>(_points);
+            var points = new List<Point>(_points);
             points.Reverse();
 
-            var arcSizes = new List<float>(_arcAngles);
+            var arcSizes = new List<double>(_arcAngles);
             arcSizes.Reverse();
 
             var arcClockwise = new List<bool>(_arcClockwise);
@@ -1014,7 +1014,7 @@ namespace Microsoft.Maui.Graphics
                 }
             }
 
-            return new PathF(points, arcSizes, arcClockwise, operations, _subPathCount);
+            return new Path(points, arcSizes, arcClockwise, operations, _subPathCount);
         }
 
         public void AppendEllipse(RectangleF rect)
@@ -1022,7 +1022,7 @@ namespace Microsoft.Maui.Graphics
             AppendEllipse(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
-        public void AppendEllipse(float x, float y, float w, float h)
+        public void AppendEllipse(double x, double y, double w, double h)
         {
             var minX = x;
             var minY = y;
@@ -1033,20 +1033,20 @@ namespace Microsoft.Maui.Graphics
             var offsetY = h / 2 * .55f;
             var offsetX = w / 2 * .55f;
 
-            MoveTo(new PointF(minX, midY));
-            CurveTo(new PointF(minX, midY - offsetY), new PointF(midX - offsetX, minY), new PointF(midX, minY));
-            CurveTo(new PointF(midX + offsetX, minY), new PointF(maxX, midY - offsetY), new PointF(maxX, midY));
-            CurveTo(new PointF(maxX, midY + offsetY), new PointF(midX + offsetX, maxY), new PointF(midX, maxY));
-            CurveTo(new PointF(midX - offsetX, maxY), new PointF(minX, midY + offsetY), new PointF(minX, midY));
+            MoveTo(new Point(minX, midY));
+            CurveTo(new Point(minX, midY - offsetY), new Point(midX - offsetX, minY), new Point(midX, minY));
+            CurveTo(new Point(midX + offsetX, minY), new Point(maxX, midY - offsetY), new Point(maxX, midY));
+            CurveTo(new Point(maxX, midY + offsetY), new Point(midX + offsetX, maxY), new Point(midX, maxY));
+            CurveTo(new Point(midX - offsetX, maxY), new Point(minX, midY + offsetY), new Point(minX, midY));
             Close();
         }
 
-        public void AppendCircle(PointF center, float r)
+        public void AppendCircle(Point center, double r)
         {
             AppendCircle(center.X, center.Y, r);
         }
 
-        public void AppendCircle(float cx, float cy, float r)
+        public void AppendCircle(double cx, double cy, double r)
         {
             var minX = cx - r;
             var minY = cy - r;
@@ -1057,11 +1057,11 @@ namespace Microsoft.Maui.Graphics
             var offsetY = r * .55f;
             var offsetX = r * .55f;
 
-            MoveTo(new PointF(minX, midY));
-            CurveTo(new PointF(minX, midY - offsetY), new PointF(midX - offsetX, minY), new PointF(midX, minY));
-            CurveTo(new PointF(midX + offsetX, minY), new PointF(maxX, midY - offsetY), new PointF(maxX, midY));
-            CurveTo(new PointF(maxX, midY + offsetY), new PointF(midX + offsetX, maxY), new PointF(midX, maxY));
-            CurveTo(new PointF(midX - offsetX, maxY), new PointF(minX, midY + offsetY), new PointF(minX, midY));
+            MoveTo(new Point(minX, midY));
+            CurveTo(new Point(minX, midY - offsetY), new Point(midX - offsetX, minY), new Point(midX, minY));
+            CurveTo(new Point(midX + offsetX, minY), new Point(maxX, midY - offsetY), new Point(maxX, midY));
+            CurveTo(new Point(maxX, midY + offsetY), new Point(midX + offsetX, maxY), new Point(midX, maxY));
+            CurveTo(new Point(midX - offsetX, maxY), new Point(minX, midY + offsetY), new Point(minX, midY));
             Close();
         }
 
@@ -1070,32 +1070,32 @@ namespace Microsoft.Maui.Graphics
             AppendRectangle(rect.X, rect.Y, rect.Width, rect.Height, includeLast);
         }
 
-        public void AppendRectangle(float x, float y, float w, float h, bool includeLast = false)
+        public void AppendRectangle(double x, double y, double w, double h, bool includeLast = false)
         {
             var minX = x;
             var minY = y;
             var maxX = minX + w;
             var maxY = minY + h;
 
-            MoveTo(new PointF(minX, minY));
-            LineTo(new PointF(maxX, minY));
-            LineTo(new PointF(maxX, maxY));
-            LineTo(new PointF(minX, maxY));
+            MoveTo(new Point(minX, minY));
+            LineTo(new Point(maxX, minY));
+            LineTo(new Point(maxX, maxY));
+            LineTo(new Point(minX, maxY));
 
             if (includeLast)
             {
-                LineTo(new PointF(minX, minY));
+                LineTo(new Point(minX, minY));
             }
 
             Close();
         }
 
-        public void AppendRoundedRectangle(RectangleF rect, float cornerRadius, bool includeLast = false)
+        public void AppendRoundedRectangle(RectangleF rect, double cornerRadius, bool includeLast = false)
         {
             AppendRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius, includeLast);
         }
 
-        public void AppendRoundedRectangle(float x, float y, float w, float h, float cornerRadius, bool includeLast = false)
+        public void AppendRoundedRectangle(double x, double y, double w, double h, double cornerRadius, bool includeLast = false)
         {
             cornerRadius = ClampCornerRadius(cornerRadius, w, h);
 
@@ -1107,29 +1107,29 @@ namespace Microsoft.Maui.Graphics
             var handleOffset = cornerRadius * .55f;
             var cornerOffset = cornerRadius - handleOffset;
 
-            MoveTo(new PointF(minx, miny + cornerRadius));
-            CurveTo(new PointF(minx, miny + cornerOffset), new PointF(minx + cornerOffset, miny), new PointF(minx + cornerRadius, miny));
-            LineTo(new PointF(maxx - cornerRadius, miny));
-            CurveTo(new PointF(maxx - cornerOffset, miny), new PointF(maxx, miny + cornerOffset), new PointF(maxx, miny + cornerRadius));
-            LineTo(new PointF(maxx, maxy - cornerRadius));
-            CurveTo(new PointF(maxx, maxy - cornerOffset), new PointF(maxx - cornerOffset, maxy), new PointF(maxx - cornerRadius, maxy));
-            LineTo(new PointF(minx + cornerRadius, maxy));
-            CurveTo(new PointF(minx + cornerOffset, maxy), new PointF(minx, maxy - cornerOffset), new PointF(minx, maxy - cornerRadius));
+            MoveTo(new Point(minx, miny + cornerRadius));
+            CurveTo(new Point(minx, miny + cornerOffset), new Point(minx + cornerOffset, miny), new Point(minx + cornerRadius, miny));
+            LineTo(new Point(maxx - cornerRadius, miny));
+            CurveTo(new Point(maxx - cornerOffset, miny), new Point(maxx, miny + cornerOffset), new Point(maxx, miny + cornerRadius));
+            LineTo(new Point(maxx, maxy - cornerRadius));
+            CurveTo(new Point(maxx, maxy - cornerOffset), new Point(maxx - cornerOffset, maxy), new Point(maxx - cornerRadius, maxy));
+            LineTo(new Point(minx + cornerRadius, maxy));
+            CurveTo(new Point(minx + cornerOffset, maxy), new Point(minx, maxy - cornerOffset), new Point(minx, maxy - cornerRadius));
 
             if (includeLast)
             {
-                LineTo(new PointF(minx, miny + cornerRadius));
+                LineTo(new Point(minx, miny + cornerRadius));
             }
 
             Close();
         }
 
-        public void AppendRoundedRectangle(RectangleF rect, float topLeftCornerRadius, float topRightCornerRadius, float bottomLeftCornerRadius, float bottomRightCornerRadius, bool includeLast = false)
+        public void AppendRoundedRectangle(RectangleF rect, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius, bool includeLast = false)
         {
             AppendRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, topLeftCornerRadius, topRightCornerRadius, bottomLeftCornerRadius, bottomRightCornerRadius, includeLast);
         }
 
-        public void AppendRoundedRectangle(float x, float y, float w, float h, float topLeftCornerRadius, float topRightCornerRadius, float bottomLeftCornerRadius, float bottomRightCornerRadius, bool includeLast = false)
+        public void AppendRoundedRectangle(double x, double y, double w, double h, double topLeftCornerRadius, double topRightCornerRadius, double bottomLeftCornerRadius, double bottomRightCornerRadius, bool includeLast = false)
         {
             topLeftCornerRadius = ClampCornerRadius(topLeftCornerRadius, w, h);
             topRightCornerRadius = ClampCornerRadius(topRightCornerRadius, w, h);
@@ -1146,24 +1146,24 @@ namespace Microsoft.Maui.Graphics
             var bottomLeftCornerOffset = bottomLeftCornerRadius - (bottomLeftCornerRadius * .55f);
             var bottomRightCornerOffset = bottomRightCornerRadius - (bottomRightCornerRadius * .55f);
 
-            MoveTo(new PointF(minx, miny + topLeftCornerRadius));
-            CurveTo(new PointF(minx, miny + topLeftCornerOffset), new PointF(minx + topLeftCornerOffset, miny), new PointF(minx + topLeftCornerRadius, miny));
-            LineTo(new PointF(maxx - topRightCornerRadius, miny));
-            CurveTo(new PointF(maxx - topRightCornerOffset, miny), new PointF(maxx, miny + topRightCornerOffset), new PointF(maxx, miny + topRightCornerRadius));
-            LineTo(new PointF(maxx, maxy - bottomRightCornerRadius));
-            CurveTo(new PointF(maxx, maxy - bottomRightCornerOffset), new PointF(maxx - bottomRightCornerOffset, maxy), new PointF(maxx - bottomRightCornerRadius, maxy));
-            LineTo(new PointF(minx + bottomLeftCornerRadius, maxy));
-            CurveTo(new PointF(minx + bottomLeftCornerOffset, maxy), new PointF(minx, maxy - bottomLeftCornerOffset), new PointF(minx, maxy - bottomLeftCornerRadius));
+            MoveTo(new Point(minx, miny + topLeftCornerRadius));
+            CurveTo(new Point(minx, miny + topLeftCornerOffset), new Point(minx + topLeftCornerOffset, miny), new Point(minx + topLeftCornerRadius, miny));
+            LineTo(new Point(maxx - topRightCornerRadius, miny));
+            CurveTo(new Point(maxx - topRightCornerOffset, miny), new Point(maxx, miny + topRightCornerOffset), new Point(maxx, miny + topRightCornerRadius));
+            LineTo(new Point(maxx, maxy - bottomRightCornerRadius));
+            CurveTo(new Point(maxx, maxy - bottomRightCornerOffset), new Point(maxx - bottomRightCornerOffset, maxy), new Point(maxx - bottomRightCornerRadius, maxy));
+            LineTo(new Point(minx + bottomLeftCornerRadius, maxy));
+            CurveTo(new Point(minx + bottomLeftCornerOffset, maxy), new Point(minx, maxy - bottomLeftCornerOffset), new Point(minx, maxy - bottomLeftCornerRadius));
 
             if (includeLast)
             {
-                LineTo(new PointF(minx, miny + topLeftCornerRadius));
+                LineTo(new Point(minx, miny + topLeftCornerRadius));
             }
 
             Close();
         }
 
-        private float ClampCornerRadius(float cornerRadius, float w, float h)
+        private double ClampCornerRadius(double cornerRadius, double w, double h)
         {
             if (cornerRadius > h / 2)
                 cornerRadius = h / 2;
@@ -1212,7 +1212,7 @@ namespace Microsoft.Maui.Graphics
             _nativePath = null;
         }
 
-        public void Move(float x, float y)
+        public void Move(double x, double y)
         {
             for (var i = 0; i < _points.Count; i++)
             {
@@ -1222,7 +1222,7 @@ namespace Microsoft.Maui.Graphics
             Invalidate();
         }
 
-        public void MovePoint(int index, float dx, float dy)
+        public void MovePoint(int index, double dx, double dy)
         {
             _points[index] = _points[index].Offset(dx,dy);
             Invalidate();
@@ -1230,7 +1230,7 @@ namespace Microsoft.Maui.Graphics
 
         public override bool Equals(object obj)
         {
-            if (obj is PathF compareTo)
+            if (obj is Path compareTo)
             {
                 if (OperationCount != compareTo.OperationCount)
                     return false;
@@ -1285,9 +1285,9 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public bool Equals(object obj, float epsilon)
+        public bool Equals(object obj, double epsilon)
         {
-            if (obj is PathF compareTo)
+            if (obj is Path compareTo)
             {
                 if (OperationCount != compareTo.OperationCount)
                     return false;

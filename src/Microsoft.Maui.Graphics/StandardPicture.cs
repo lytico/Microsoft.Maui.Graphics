@@ -6,13 +6,13 @@
     {
         private readonly DrawingCommand[] _commands;
 
-        public float X { get; }
-        public float Y { get; }
-        public float Width { get; }
-        public float Height { get; }
+        public double X { get; }
+        public double Y { get; }
+        public double Width { get; }
+        public double Height { get; }
         public string Hash { get; set; }
 
-        public StandardPicture(float x, float y, float width, float height, DrawingCommand[] commands, string hash = null)
+        public StandardPicture(double x, double y, double width, double height, DrawingCommand[] commands, string hash = null)
         {
             X = x;
             Y = y;

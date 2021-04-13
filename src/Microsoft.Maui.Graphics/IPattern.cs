@@ -2,10 +2,10 @@ namespace Microsoft.Maui.Graphics
 {
     public interface IPattern
     {
-        float Width { get; }
-        float Height { get; }
-        float StepX { get; }
-        float StepY { get; }
+        double Width { get; }
+        double Height { get; }
+        double StepX { get; }
+        double StepY { get; }
         void Draw(ICanvas canvas);
     }
 }

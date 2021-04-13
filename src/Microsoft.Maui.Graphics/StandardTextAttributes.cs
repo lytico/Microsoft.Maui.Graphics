@@ -4,11 +4,11 @@
     {
         public string FontName { get; set; }
 
-        public float FontSize { get; set; }
+        public double FontSize { get; set; }
 
         public HorizontalAlignment HorizontalAlignment { get; set; }
 
-        public float Margin { get; set; }
+        public double Margin { get; set; }
 
         public Color TextFontColor { get; set; }
 

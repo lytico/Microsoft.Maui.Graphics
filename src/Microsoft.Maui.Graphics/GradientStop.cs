@@ -5,9 +5,9 @@ namespace Microsoft.Maui.Graphics
     public class GradientStop : IComparable<GradientStop>
     {
         private Color _color;
-        private float _offset;
+        private double _offset;
 
-        public GradientStop(float offset, Color color)
+        public GradientStop(double offset, Color color)
         {
             _color = color;
             _offset = offset;
@@ -25,7 +25,7 @@ namespace Microsoft.Maui.Graphics
             set => _color = value;
         }
 
-        public float Offset
+        public double Offset
         {
             get => _offset;
             set => _offset = value;

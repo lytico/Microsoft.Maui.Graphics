@@ -4,12 +4,12 @@ namespace Microsoft.Maui.Graphics
 {
     public class Paint
     {
-        private float _angle;
-        private SizeF? _endLocationRatio;
+        private double _angle;
+        private Size? _endLocationRatio;
         private IImage _image;
         private PaintType _paintType = Graphics.PaintType.LinearGradient;
         private IPattern _pattern;
-        private SizeF? _startLocationRatio;
+        private Size? _startLocationRatio;
 
         private GradientStop[] _stops =
         {
@@ -36,7 +36,7 @@ namespace Microsoft.Maui.Graphics
 
                 _startLocationRatio = source.StartLocationRatio;
                 _endLocationRatio = source.EndLocationRatio;
-             
+
                 _pattern = source._pattern;
                 _image = source._image;
             }
@@ -128,7 +128,7 @@ namespace Microsoft.Maui.Graphics
             get
             {
                 var index = -1;
-                float offset = 0;
+                double offset = 0;
                 for (var i = 0; i < _stops.Length; i++)
                 {
                     if (_stops[i].Offset >= offset)
@@ -147,7 +147,7 @@ namespace Microsoft.Maui.Graphics
             get
             {
                 var index = -1;
-                float offset = 1;
+                double offset = 1;
                 for (var i = 0; i < _stops.Length; i++)
                 {
                     if (_stops[i].Offset <= offset)
@@ -167,25 +167,25 @@ namespace Microsoft.Maui.Graphics
             set => _paintType = value;
         }
 
-        public float Angle
+        public double Angle
         {
             get => _angle;
             set => _angle = value;
         }
 
-        public SizeF? StartLocationRatio
+        public Size? StartLocationRatio
         {
             get => _startLocationRatio;
             set => _startLocationRatio = value;
         }
 
-        public SizeF? EndLocationRatio
+        public Size? EndLocationRatio
         {
             get => _endLocationRatio;
             set => _endLocationRatio = value;
         }
 
-        public SizeF FocalPointRatio { get; set; }
+        public Size FocalPointRatio { get; set; }
 
         public GradientStop[] GetSortedStops()
         {
@@ -195,16 +195,16 @@ namespace Microsoft.Maui.Graphics
             return vStops;
         }
 
-        public void AddOffset(float offset)
+        public void AddOffset(double offset)
         {
             AddOffset(offset, GetColorAt(offset));
         }
 
-        public void AddOffset(float offset, Color color)
+        public void AddOffset(double offset, Color color)
         {
             var oldStops = Stops;
             var newStops = new GradientStop[oldStops.Length + 1];
-            
+
             for (var i = 0; i < oldStops.Length; i++)
                 newStops[i] = oldStops[i];
 
@@ -237,7 +237,7 @@ namespace Microsoft.Maui.Graphics
             Stops = newStops;
         }
 
-        public Color GetColorAt(float offset)
+        public Color GetColorAt(double offset)
         {
             var stops = Stops;
             if (stops.Length == 1)
@@ -245,9 +245,9 @@ namespace Microsoft.Maui.Graphics
                 return stops[0].Color;
             }
 
-            var before = float.MaxValue;
+            var before = double.MaxValue;
             var beforeIndex = -1;
-            var after = float.MaxValue;
+            var after = double.MaxValue;
             var afterIndex = -1;
 
             for (var i = 0; i < stops.Length; i++)
@@ -303,7 +303,7 @@ namespace Microsoft.Maui.Graphics
             return BlendStartAndEndColors(StartColor, EndColor, .5f);
         }
 
-        public Color BlendStartAndEndColors(Color startColor, Color endColor, float factor)
+        public Color BlendStartAndEndColors(Color startColor, Color endColor, double factor)
         {
             if (startColor == null) startColor = Colors.White;
             if (endColor == null) endColor = Colors.White;
@@ -320,8 +320,8 @@ namespace Microsoft.Maui.Graphics
         {
             return $"[{nameof(Paint)}: StartColor={StartColor}, EndColor={EndColor}, PaintType={PaintType}, Angle={Angle}]";
         }
-        
-        public void SetStops(float[] offsets, Color[] colors)
+
+        public void SetStops(double[] offsets, Color[] colors)
         {
             var stopCount = Math.Min(colors.Length, offsets.Length);
             _stops = new GradientStop[stopCount];

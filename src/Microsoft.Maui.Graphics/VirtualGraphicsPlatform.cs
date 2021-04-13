@@ -6,47 +6,47 @@ namespace Microsoft.Maui.Graphics
 {
     public class VirtualGraphicsPlatform : IGraphicsService
     {
-        public List<PathF> ConvertToPaths(PathF aPath, string text, ITextAttributes textAttributes, float ppu, float zoom)
+        public List<Path> ConvertToPaths(Path aPath, string text, ITextAttributes textAttributes, double ppu, double zoom)
         {
-            return new List<PathF>();
+            return new List<Path>();
         }
 
-        public SizeF GetStringSize(string value, string fontName, float textSize)
+        public Size GetStringSize(string value, string fontName, double textSize)
         {
-            return new SizeF(value.Length * 10, textSize + 2);
+            return new Size(value.Length * 10, textSize + 2);
         }
 
-        public SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
+        public Size GetStringSize(string value, string fontName, double textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
-            return new SizeF(value.Length * 10, textSize + 2);
+            return new Size(value.Length * 10, textSize + 2);
         }
 
-        public void LayoutText(PathF path, string text, ITextAttributes textAttributes, LayoutLine callback)
+        public void LayoutText(Path path, string text, ITextAttributes textAttributes, LayoutLine callback)
         {
             // Do nothing
         }
 
-        public RectangleF GetPathBounds(PathF path)
+        public RectangleF GetPathBounds(Path path)
         {
             throw new NotImplementedException();
         }
 
-        public RectangleF GetPathBoundsWhenRotated(PointF center, PathF path, float angle)
+        public RectangleF GetPathBoundsWhenRotated(Point center, Path path, double angle)
         {
             throw new NotImplementedException();
         }
 
-        public bool PathContainsPoint(PathF path, PointF point, float ppu, float zoom, float strokeWidth)
+        public bool PathContainsPoint(Path path, Point point, double ppu, double zoom, double strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public bool PointIsOnPath(PathF path, PointF point, float ppu, float zoom, float strokeWidth)
+        public bool PointIsOnPath(Path path, Point point, double ppu, double zoom, double strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public bool PointIsOnPathSegment(PathF path, int segmentIndex, PointF point, float ppu, float zoom, float strokeWidth)
+        public bool PointIsOnPathSegment(Path path, int segmentIndex, Point point, double ppu, double zoom, double strokeWidth)
         {
             throw new NotImplementedException();
         }
@@ -64,7 +64,7 @@ namespace Microsoft.Maui.Graphics
             }
         }
 
-        public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1)
+        public BitmapExportContext CreateBitmapExportContext(int width, int height, double displayScale = 1)
         {
             return null;
         }
