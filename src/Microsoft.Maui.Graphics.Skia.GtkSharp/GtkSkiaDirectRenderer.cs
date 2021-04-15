@@ -48,12 +48,21 @@ namespace Microsoft.Maui.Graphics.Skia
 
             try
             {
+
+                _canvas.SaveState();
+
                 if (_backgroundColor != null)
                 {
                     _canvas.FillColor = _backgroundColor;
                     _canvas.FillRectangle(dirtyRect);
-                    _canvas.FillColor = Colors.White;
                 }
+                else
+                {
+                    _canvas.ClipRectangle(dirtyRect);
+                    _canvas.Canvas.Clear();
+                }
+
+                _canvas.RestoreState();
 
                 _drawable.Draw(_scalingCanvas, dirtyRect);
             }
