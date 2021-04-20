@@ -17,21 +17,18 @@ namespace Samples
         {
             Application.Init();
 
-            App = new Application("org.Samples.Samples", GLib.ApplicationFlags.None);
+            App = new Application("Microsoft.Maui.Graphics.Samples", GLib.ApplicationFlags.None);
             App.Register(GLib.Cancellable.Current);
 
             Win = new MainWindow();
             App.AddWindow(Win);
 
             var menu = new GLib.Menu();
-            menu.AppendItem(new GLib.MenuItem("Help", "app.help"));
+
             menu.AppendItem(new GLib.MenuItem("About", "app.about"));
             menu.AppendItem(new GLib.MenuItem("Quit", "app.quit"));
             App.AppMenu = menu;
 
-            var helpAction = new GLib.SimpleAction("help", null);
-            helpAction.Activated += HelpActivated;
-            App.AddAction(helpAction);
 
             var aboutAction = new GLib.SimpleAction("about", null);
             aboutAction.Activated += AboutActivated;
@@ -43,11 +40,6 @@ namespace Samples
 
             Win.ShowAll();
             Application.Run();
-        }
-
-        private static void HelpActivated(object sender, EventArgs e)
-        {
-
         }
 
         private static void AboutActivated(object sender, EventArgs e)
