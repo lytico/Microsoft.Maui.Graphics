@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
         public string Name => _name;
 
         public IFontStyle[] GetFontStyles () {
-            return _fontStyles ??= InitializeFontStyles ();
+            return _fontStyles ??= GetAvailableFontStyles ();
         }
 
         private IEnumerable<(Pango.FontFamily family, Pango.FontDescription)> GetAvailableFamilyFaces (Pango.FontFamily family) {
@@ -35,7 +35,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
             yield break;
         }
 
-        private IFontStyle[] InitializeFontStyles () {
+        private IFontStyle[] GetAvailableFontStyles () {
             var fontFamilies = systemContext.FontMap?.Families.ToArray ();
 
             var styles = new List<IFontStyle> ();
