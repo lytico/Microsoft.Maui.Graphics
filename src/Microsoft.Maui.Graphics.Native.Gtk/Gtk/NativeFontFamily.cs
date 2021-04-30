@@ -49,10 +49,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
                     var weight = FontUtils.GetFontWeight (name);
                     var styleType = FontUtils.GetStyleType (name);
 
-                    var fullName = _name;
-
-                    if (i > 0)
-                        fullName = $"{_name} {name}";
+                    var fullName =  $"{_name} {name}";
 
                     styles.Add (new NativeFontStyle (this, id, name, fullName, weight, styleType));
                 }
