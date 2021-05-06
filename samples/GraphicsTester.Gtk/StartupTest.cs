@@ -13,6 +13,11 @@ namespace Samples {
 
 			foreach (var ff in NativeFontService.Instance.GetFontFamilies()) {
 				Logger.Info(ff);
+
+				foreach (var s in ff.GetFontStyles()) {
+					Logger.Info($"\t\t{s}");
+
+				}
 			}
 
 			using var desc = Pango.FontDescription.FromString(NativeFontService.Instance.SystemFontName);
@@ -22,11 +27,10 @@ namespace Samples {
 			var size = NativeGraphicsService.Instance.GetStringSize(testStr, null, -1);
 			Logger.Info($"{testStr} : {size}");
 
-			size = NativeGraphicsService.Instance.GetStringSize(testStr, null, size.Width/2);
+			size = NativeGraphicsService.Instance.GetStringSize(testStr, null, size.Width / 2);
 			Logger.Info($"{testStr} : {size}");
 
 		}
-
 
 		void Notes() {
 			// for context;
