@@ -9,15 +9,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics.csproj" />
+        <ProjectReference Include="..\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="GtkSharp" Version="3.24.24.34" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Update="GtkMissingImplementationAttribute.cs">
-        <SubType>Code</SubType>
-      </Compile>
+        <PackageReference Include="GtkSharp" Version="3.24.24.34"/>
     </ItemGroup>
 
 </Project>
