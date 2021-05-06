@@ -30,6 +30,9 @@ namespace Samples {
 			size = NativeGraphicsService.Instance.GetStringSize(testStr, null, size.Width / 2);
 			Logger.Info($"{testStr} : {size}");
 
+			Logger.Info($"ScreenResulution {HardwareInformations.DefaultScreen.Resolution}");
+			Logger.Info($"{nameof(HardwareInformations.CurrentScaleFaktor)} {HardwareInformations.CurrentScaleFaktor}");
+
 		}
 
 		void Notes() {
