@@ -1,5 +1,3 @@
-using Microsoft.Maui.Graphics.Extras;
-
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public static class TextLayoutExtensions {
@@ -47,19 +45,18 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				return Pango.WrapMode.Word;
 		}
 
-		public static Pango.EllipsizeMode ToPangoEllipsize(this Extras.LineBreakMode lbm) {
-			var it = (LineBreakFlags) lbm;
+		public static Pango.EllipsizeMode ToPangoEllipsize(this Extras.LineBreakMode it) {
 
-			if (it.HasFlag(Extras.LineBreakFlags.Elipsis | Extras.LineBreakFlags.End))
+			if (it.HasFlag(Extras.LineBreakMode.Elipsis | Extras.LineBreakMode.End))
 				return Pango.EllipsizeMode.End;
 
-			if (it.HasFlag(Extras.LineBreakFlags.Elipsis | Extras.LineBreakFlags.Center))
+			if (it.HasFlag(Extras.LineBreakMode.Elipsis | Extras.LineBreakMode.Center))
 				return Pango.EllipsizeMode.Middle;
 
-			if (it.HasFlag(Extras.LineBreakFlags.Elipsis | Extras.LineBreakFlags.Start))
+			if (it.HasFlag(Extras.LineBreakMode.Elipsis | Extras.LineBreakMode.Start))
 				return Pango.EllipsizeMode.Start;
 
-			if (it.HasFlag(Extras.LineBreakFlags.Elipsis))
+			if (it.HasFlag(Extras.LineBreakMode.Elipsis))
 				return Pango.EllipsizeMode.End;
 
 			return Pango.EllipsizeMode.None;

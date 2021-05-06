@@ -6,7 +6,7 @@ using System;
 namespace Microsoft.Maui.Graphics.Extras {
 
 	[Flags]
-	public enum LineBreakFlags {
+	public enum LineBreakMode {
 
 		None = 0,
 
@@ -21,27 +21,22 @@ namespace Microsoft.Maui.Graphics.Extras {
 		Center = 0x1 << 6,
 		End = 0x1 << 7,
 
-	}
+		NoWrap = None,
 
-	[Flags]
-	public enum LineBreakMode {
+		WordWrap = Wrap | Word | End,
+		CharacterWrap = Wrap | Character | End,
+		WordCharacterWrap = Wrap | Word | Character | End,
 
-		NoWrap = LineBreakFlags.None,
-
-		WordWrap = LineBreakFlags.Wrap | LineBreakFlags.Word | LineBreakFlags.End,
-		CharacterWrap = LineBreakFlags.Wrap | LineBreakFlags.Character | LineBreakFlags.End,
-		WordCharacterWrap = LineBreakFlags.Wrap | LineBreakFlags.Word | LineBreakFlags.Character | LineBreakFlags.End,
-
-		StartTruncation = LineBreakFlags.Truncation | LineBreakFlags.Character | LineBreakFlags.Start,
-		EndTruncation = LineBreakFlags.Truncation | LineBreakFlags.Character | LineBreakFlags.End,
-		CenterTruncation = LineBreakFlags.Truncation | LineBreakFlags.Character | LineBreakFlags.Center,
+		StartTruncation = Truncation | Character | Start,
+		EndTruncation = Truncation | Character | End,
+		CenterTruncation = Truncation | Character | Center,
 
 		HeadTruncation = StartTruncation,
 		TailTruncation = EndTruncation,
 		MiddleTruncation = CenterTruncation,
 
-		WordElipsis = LineBreakFlags.Elipsis | LineBreakFlags.Word | LineBreakFlags.End,
-		CharacterElipsis = LineBreakFlags.Elipsis | LineBreakFlags.Character | LineBreakFlags.End,
+		WordElipsis = Elipsis | Word | End,
+		CharacterElipsis = Elipsis | Character | End,
 
 	}
 
