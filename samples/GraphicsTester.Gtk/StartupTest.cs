@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Graphics.Native.Gtk;
 
@@ -33,6 +35,31 @@ namespace Samples {
 			Logger.Info($"ScreenResulution {HardwareInformations.DefaultScreen.Resolution}");
 			Logger.Info($"{nameof(HardwareInformations.CurrentScaleFaktor)} {HardwareInformations.CurrentScaleFaktor}");
 
+			ColorTests();
+
+		}
+
+		static void ColorTests() {
+
+			void Test(Color initial, Color expected, string name) {
+				if (!Equals(initial, expected))
+					Logger.Error($"{name}:{initial} != {expected}");
+				else {
+					Logger.Info($"{name}:{initial}");
+				}
+			}
+
+			foreach (var cp in typeof(Colors).GetFields(BindingFlags.Static | BindingFlags.Public)) {
+				var color = cp.GetValue(null) as Color;
+				var name = cp.Name;
+
+				var cairo = color.ToCairoColor();
+				Test(color, cairo.ToColor(), name);
+
+				var rgba = color.ToGdkRgba();
+				Test(color, rgba.ToColor(), name);
+
+			}
 		}
 
 		void Notes() {
